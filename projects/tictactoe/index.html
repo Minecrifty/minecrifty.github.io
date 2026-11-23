@@ -23,38 +23,45 @@
 <body>
 <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 <header class="site-header">
-  <div class="container header-inner">
+  <div class="rail-inner">
     <a class="brand" href="../../" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-      <img src="../../assets/img/avatar.png" width="38" height="38" alt=""><span>Minecrifty</span>
+      <img src="../../assets/img/avatar.png" width="40" height="40" alt=""><span>Minecrifty</span>
     </a>
-    <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
-      <ul>
-        <li><a href="../../" data-i18n="nav.home">Inicio</a></li>
-        <li><a href="../../youtube/" data-i18n="nav.youtube">YouTube</a></li>
-        <li><a href="../../projects/" aria-current="page" data-i18n="nav.projects">Proyectos</a></li>
-      </ul>
-    </nav>
     <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
       <button type="button" data-lang="es" aria-pressed="true">ES</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
-    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
+    <button class="nav-toggle" type="button" aria-controls="rail-panel" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
       <span></span><span></span>
     </button>
+    <div class="rail-panel" id="rail-panel">
+      <nav class="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
+        <ul>
+          <li><a href="../../"><span class="n">01</span><span data-i18n="nav.home">Inicio</span></a></li>
+          <li><a href="../../youtube/"><span class="n">02</span><span data-i18n="nav.youtube">YouTube</span></a></li>
+          <li><a href="../../projects/" aria-current="page"><span class="n">03</span><span data-i18n="nav.projects">Proyectos</span></a></li>
+        </ul>
+      </nav>
+      <div class="rail-links mono">
+        <a href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://github.com/Minecrifty" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
   </div>
 </header>
+<div class="page">
 <main id="main">
-  <header class="page-hero">
+  <header class="page-head">
     <div class="container split">
       <div class="reveal">
-        <a class="crumb" href="../../projects/"><span aria-hidden="true">←</span>&nbsp;<span data-i18n="ttt.back">Volver a proyectos</span></a>
-        <p class="eyebrow" data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</p>
+        <a class="crumb mono" href="../../projects/"><span aria-hidden="true">←</span>&nbsp;<span data-i18n="ttt.back">Volver a proyectos</span></a>
+        <p class="eyebrow mono" data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</p>
         <h1>TicTacToe</h1>
         <p class="lead" data-i18n="ttt.lead">Sistema multijugador de tres en raya para Minecraft Bedrock.</p>
       </div>
-      <figure class="cover media reveal" style="--d:120ms">
+      <figure class="cover media reveal" style="--d:100ms">
         <img src="../../assets/img/tictactoe.webp" width="1600" height="1000" alt="" fetchpriority="high" decoding="async">
-        <span class="media-placeholder" data-i18n="common.imgsoon">Imagen próximamente</span>
+        <span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span>
       </figure>
     </div>
   </header>
@@ -62,10 +69,10 @@
   <section class="section">
     <div class="container">
       <div class="section-head reveal"><h2 data-i18n="ttt.info.h">Características</h2></div>
-      <dl class="stats" data-stagger>
-        <div class="stat reveal"><dt data-i18n="ttt.l.type">Tipo</dt><dd class="small" data-i18n="ttt.v.type">Addon</dd></div>
-        <div class="stat reveal"><dt data-i18n="ttt.l.platform">Plataforma</dt><dd class="small">Minecraft Bedrock</dd></div>
-        <div class="stat reveal"><dt data-i18n="ttt.l.game">Juego</dt><dd class="small" data-i18n="ttt.v.game">Tres en raya multijugador</dd></div>
+      <dl class="spec reveal">
+        <div><dt class="mono" data-i18n="ttt.l.type">Tipo</dt><dd data-i18n="ttt.v.type">Addon</dd></div>
+        <div><dt class="mono" data-i18n="ttt.l.platform">Plataforma</dt><dd>Minecraft Bedrock</dd></div>
+        <div><dt class="mono" data-i18n="ttt.l.game">Juego</dt><dd data-i18n="ttt.v.game">Tres en raya multijugador</dd></div>
       </dl>
     </div>
   </section>
@@ -73,22 +80,22 @@
   <section class="section" style="padding-top:0">
     <div class="container">
       <div class="section-head reveal"><h2 data-i18n="ttt.modes.h">Modos de juego</h2></div>
-      <div class="grid" data-stagger>
-        <article class="card mode reveal"><div class="card-body">
-          <p class="mode-num">01</p>
+      <div class="modes" data-stagger>
+        <article class="mode reveal">
+          <p class="mode-num" aria-hidden="true">01</p>
           <h3 data-i18n="ttt.mode.classic">Clásico</h3>
           <p class="desc" data-i18n="ttt.mode.soon">Descripción próximamente</p>
-        </div></article>
-        <article class="card mode reveal"><div class="card-body">
-          <p class="mode-num">02</p>
+        </article>
+        <article class="mode reveal">
+          <p class="mode-num" aria-hidden="true">02</p>
           <h3 data-i18n="ttt.mode.hybrid">Híbrido</h3>
           <p class="desc" data-i18n="ttt.mode.soon">Descripción próximamente</p>
-        </div></article>
-        <article class="card mode reveal"><div class="card-body">
-          <p class="mode-num">03</p>
+        </article>
+        <article class="mode reveal">
+          <p class="mode-num" aria-hidden="true">03</p>
           <h3 data-i18n="ttt.mode.advanced">Avanzado</h3>
           <p class="desc" data-i18n="ttt.mode.soon">Descripción próximamente</p>
-        </div></article>
+        </article>
       </div>
     </div>
   </section>
@@ -97,10 +104,10 @@
     <div class="container">
       <div class="section-head reveal"><h2 data-i18n="ttt.gallery.h">Imágenes</h2></div>
       <!-- Para agregar una imagen: dentro de cada bloque .media añade <img src="../../assets/img/projects/tictactoe-1.webp" alt="" loading="lazy"> -->
-      <div class="grid" data-stagger>
-        <div class="media card-media card reveal"><span class="media-placeholder" data-i18n="common.imgsoon">Imagen próximamente</span></div>
-        <div class="media card-media card reveal"><span class="media-placeholder" data-i18n="common.imgsoon">Imagen próximamente</span></div>
-        <div class="media card-media card reveal"><span class="media-placeholder" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+      <div class="gallery" data-stagger>
+        <div class="media gallery-item reveal"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+        <div class="media gallery-item reveal"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+        <div class="media gallery-item reveal"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
       </div>
     </div>
   </section>
@@ -118,19 +125,11 @@
 </main>
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-inner">
-      <p>© <span data-year>2026</span> Minecrifty</p>
-      <nav class="footer-links" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
-        <a href="../../" data-i18n="nav.home">Inicio</a>
-        <a href="../../youtube/" data-i18n="nav.youtube">YouTube</a>
-        <a href="../../projects/" data-i18n="nav.projects">Proyectos</a>
-        <a href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener">YouTube ↗</a>
-        <a href="https://github.com/Minecrifty" target="_blank" rel="noopener">GitHub ↗</a>
-      </nav>
-    </div>
+    <p class="mono">© <span data-year>2026</span> Minecrifty</p>
     <p class="footer-note" data-i18n="footer.note">Minecraft es una marca de Mojang Studios. Este sitio es independiente y no está afiliado a Mojang ni a Microsoft.</p>
   </div>
 </footer>
+</div>
 <script src="../../assets/js/config.js"></script>
 <script src="../../assets/js/i18n.js"></script>
 <script src="../../assets/js/main.js"></script>
