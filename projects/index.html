@@ -23,26 +23,24 @@
 <body>
 <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 <header class="site-header">
-  <div class="container">
-    <div class="bar">
-      <a class="brand" href="../" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-        <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
-      </a>
-      <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
-        <ul>
-          <li><a href="../" data-i18n="nav.home">Inicio</a></li>
-          <li><a href="../youtube/" data-i18n="nav.youtube">YouTube</a></li>
-          <li><a href="../projects/" aria-current="page" data-i18n="nav.projects">Proyectos</a></li>
-        </ul>
-      </nav>
-      <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
-        <button type="button" data-lang="es" aria-pressed="true">ES</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      </div>
-      <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
-        <span></span><span></span>
-      </button>
+  <div class="container bar">
+    <a class="brand" href="../" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
+      <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
+      <ul>
+        <li><a href="../" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="../youtube/" data-i18n="nav.youtube">YouTube</a></li>
+        <li><a href="../projects/" aria-current="page" data-i18n="nav.projects">Proyectos</a></li>
+      </ul>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
+    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
+      <span></span><span></span>
+    </button>
   </div>
 </header>
 <div class="page">
@@ -54,46 +52,35 @@
       <p class="lead" data-i18n="projects.lead">Los addons, ecosistemas e identidades que desarrollo.</p>
     </div>
   </header>
-  <section class="section" style="padding-top:clamp(2.5rem,5vw,4rem)">
-    <div class="container">
-      <div class="cards">
-      <a class="card card-wide is-link reveal" href="../projects/tictactoe/">
-      <div class="media card-media">
-        <img src="../assets/img/tictactoe.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
-        <span class="chip mono">01</span>
-      </div>
-      <div class="card-body">
-        <p class="tag mono" data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</p>
-        <h3>TicTacToe</h3>
+  <section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+    <div class="container plist">
+    <a class="prow is-link reveal" href="../projects/tictactoe/">
+      <div class="media prow-thumb"><img src="../assets/img/tictactoe.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
+      <div class="prow-main">
+        <p class="tag mono"><span>01</span> · <span data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</span></p>
+        <h2>TicTacToe</h2>
         <p class="desc" data-i18n="p.ttt.desc">Sistema multijugador de tres en raya para Minecraft Bedrock, con los modos Clásico, Híbrido y Avanzado.</p>
-        <span class="more mono"><span data-i18n="common.details">Ver detalles</span> <span class="arrow" aria-hidden="true">→</span></span>
       </div>
+      <span class="prow-end mono"><span data-i18n="common.details">Ver detalles</span> →</span>
     </a>
-      <article class="card  reveal">
-      <div class="media card-media">
-        <img src="../assets/img/crifty-verse.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
-        <span class="chip mono">02</span>
-      </div>
-      <div class="card-body">
-        <p class="tag mono" data-i18n="p.cv.tag">Ecosistema</p>
-        <h3>CriftyVerse</h3>
+    <article class="prow reveal">
+      <div class="media prow-thumb"><img src="../assets/img/crifty-verse.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
+      <div class="prow-main">
+        <p class="tag mono"><span>02</span> · <span data-i18n="p.cv.tag">Ecosistema</span></p>
+        <h2>CriftyVerse</h2>
         <p class="desc" data-i18n="p.cv.desc">Ecosistema de eventos y experiencias de Minecraft.</p>
-        <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
       </div>
+      <span class="prow-end mono is-muted" data-i18n="common.soon">Próximamente</span>
     </article>
-      <article class="card  reveal">
-      <div class="media card-media">
-        <img src="../assets/img/crifty-studios.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
-        <span class="chip mono">03</span>
-      </div>
-      <div class="card-body">
-        <p class="tag mono" data-i18n="p.cs.tag">Identidad</p>
-        <h3>CriftyStudios</h3>
+    <article class="prow reveal">
+      <div class="media prow-thumb"><img src="../assets/img/crifty-studios.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
+      <div class="prow-main">
+        <p class="tag mono"><span>03</span> · <span data-i18n="p.cs.tag">Identidad</span></p>
+        <h2>CriftyStudios</h2>
         <p class="desc" data-i18n="p.cs.desc">Identidad para los desarrollos, addons y proyectos de Minecrifty.</p>
-        <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
       </div>
+      <span class="prow-end mono is-muted" data-i18n="common.soon">Próximamente</span>
     </article>
-      </div>
     </div>
   </section>
 </main>

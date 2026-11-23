@@ -223,6 +223,31 @@
     Promise.all(jobs).then(render);
   }
 
+  /* ---------------- Carrusel de proyectos ---------------- */
+  function initRail() {
+    var rail = document.querySelector(".rail");
+    var prev = document.querySelector('[data-rail="prev"]');
+    var next = document.querySelector('[data-rail="next"]');
+    if (!rail || !prev || !next) return;
+
+    function step() {
+      var slide = rail.querySelector(".slide");
+      return slide ? slide.getBoundingClientRect().width + 20 : 300;
+    }
+    function update() {
+      prev.disabled = rail.scrollLeft <= 4;
+      next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    }
+    function go(dir) {
+      rail.scrollBy({ left: dir * step(), behavior: reduceMotion ? "auto" : "smooth" });
+    }
+    prev.addEventListener("click", function () { go(-1); });
+    next.addEventListener("click", function () { go(1); });
+    rail.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+
   /* Al abrir los archivos directamente (file://), los enlaces a carpetas necesitan index.html */
   function fixLocalLinks() {
     if (location.protocol !== "file:") return;
@@ -250,6 +275,7 @@
 
     applyLang(initialLang(), false);
     initNav();
+    initRail();
     initMedia();
     initYouTube();
     initReveal();

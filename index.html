@@ -23,107 +23,124 @@
 <body>
 <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 <header class="site-header">
-  <div class="container">
-    <div class="bar">
-      <a class="brand" href="./" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-        <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
-      </a>
-      <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
-        <ul>
-          <li><a href="./" aria-current="page" data-i18n="nav.home">Inicio</a></li>
-          <li><a href="./youtube/" data-i18n="nav.youtube">YouTube</a></li>
-          <li><a href="./projects/" data-i18n="nav.projects">Proyectos</a></li>
-        </ul>
-      </nav>
-      <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
-        <button type="button" data-lang="es" aria-pressed="true">ES</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      </div>
-      <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
-        <span></span><span></span>
-      </button>
+  <div class="container bar">
+    <a class="brand" href="./" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
+      <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
+      <ul>
+        <li><a href="./" aria-current="page" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="./youtube/" data-i18n="nav.youtube">YouTube</a></li>
+        <li><a href="./projects/" data-i18n="nav.projects">Proyectos</a></li>
+      </ul>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
+    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
+      <span></span><span></span>
+    </button>
   </div>
 </header>
 <div class="page">
 <main id="main">
   <section class="hero">
     <div class="container hero-grid">
-      <div class="hero-text reveal">
+      <!-- Render de Minecrifty saludando (PNG con transparencia). Para cambiarlo, reemplaza assets/img/minecrifty-wave.webp -->
+      <div class="hero-art reveal">
+        <span class="hi mono" data-i18n="home.hi">¡Hola!</span>
+        <img class="platform" src="./assets/img/platform.webp" width="947" height="538" alt="" decoding="async">
+        <img class="wave" src="./assets/img/minecrifty-wave.webp" width="811" height="1000" alt="" alt="Minecrifty saludando, render de su skin de Minecraft" data-i18n-attr="alt:home.art.alt" fetchpriority="high" decoding="async">
+      </div>
+
+      <div class="hero-text reveal" style="--d:120ms">
         <p class="eyebrow mono" data-i18n="home.role">Creador de contenido y desarrollador</p>
         <h1>Minecrifty<span class="px" aria-hidden="true"></span></h1>
         <p class="lead" data-i18n="home.lead">Contenido y proyectos relacionados con Minecraft: mi canal de YouTube y los addons y desarrollos que creo.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="./projects/"><span data-i18n="home.cta.projects">Ver proyectos</span></a>
-          <a class="btn btn-ghost" href="./youtube/"><span data-i18n="home.cta.yt">Ver canal de YouTube</span></a>
-        </div>
-      </div>
-      <!-- Render de Minecrifty saludando (PNG con transparencia). Para cambiarlo, reemplaza assets/img/minecrifty-wave.webp -->
-      <div class="hero-art reveal" style="--d:120ms">
-        <span class="hi mono" data-i18n="home.hi">¡Hola!</span>
-        <img class="wave" src="./assets/img/minecrifty-wave.webp" width="811" height="1000" alt="" alt="Minecrifty saludando, render de su skin de Minecraft" data-i18n-attr="alt:home.art.alt" fetchpriority="high" decoding="async">
+        <nav class="menu" aria-label="Accesos principales" data-i18n-attr="aria-label:menu.label">
+          <a class="menu-btn" href="./projects/">
+            <span class="mb-n mono">01</span>
+            <span class="mb-main"><strong data-i18n="nav.projects">Proyectos</strong><small data-i18n="menu.projects.sub">Addons, ecosistemas e identidades</small></span>
+            <span class="mb-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="menu-btn" href="./youtube/">
+            <span class="mb-n mono">02</span>
+            <span class="mb-main"><strong data-i18n="nav.youtube">YouTube</strong><small data-i18n="menu.yt.sub">Videos, Shorts y más</small></span>
+            <span class="mb-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="menu-btn" href="./projects/tictactoe/">
+            <span class="mb-n mono">03</span>
+            <span class="mb-main"><strong>TicTacToe</strong><small data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</small></span>
+            <span class="mb-arrow" aria-hidden="true">→</span>
+          </a>
+        </nav>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section showcase">
     <div class="container">
       <div class="section-head reveal">
         <h2 data-i18n="home.featured">Proyectos destacados</h2>
-        <a class="text-link mono" href="./projects/"><span data-i18n="home.all">Ver todos los proyectos</span> →</a>
+        <div class="rail-ctrl">
+          <button class="rail-btn" type="button" data-rail="prev" aria-label="Anterior" data-i18n-attr="aria-label:rail.prev">←</button>
+          <button class="rail-btn" type="button" data-rail="next" aria-label="Siguiente" data-i18n-attr="aria-label:rail.next">→</button>
+        </div>
       </div>
-      <div class="cards">
-      <a class="card card-wide is-link reveal" href="./projects/tictactoe/">
-      <div class="media card-media">
-        <img src="./assets/img/tictactoe.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
-        <span class="chip mono">01</span>
-      </div>
-      <div class="card-body">
-        <p class="tag mono" data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</p>
-        <h3>TicTacToe</h3>
-        <p class="desc" data-i18n="p.ttt.desc">Sistema multijugador de tres en raya para Minecraft Bedrock, con los modos Clásico, Híbrido y Avanzado.</p>
-        <span class="more mono"><span data-i18n="common.details">Ver detalles</span> <span class="arrow" aria-hidden="true">→</span></span>
-      </div>
-    </a>
-      <article class="card  reveal">
-      <div class="media card-media">
-        <img src="./assets/img/crifty-verse.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
-        <span class="chip mono">02</span>
-      </div>
-      <div class="card-body">
-        <p class="tag mono" data-i18n="p.cv.tag">Ecosistema</p>
-        <h3>CriftyVerse</h3>
-        <p class="desc" data-i18n="p.cv.desc">Ecosistema de eventos y experiencias de Minecraft.</p>
-        <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
-      </div>
-    </article>
-      <article class="card  reveal">
-      <div class="media card-media">
-        <img src="./assets/img/crifty-studios.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
-        <span class="chip mono">03</span>
-      </div>
-      <div class="card-body">
-        <p class="tag mono" data-i18n="p.cs.tag">Identidad</p>
-        <h3>CriftyStudios</h3>
-        <p class="desc" data-i18n="p.cs.desc">Identidad para los desarrollos, addons y proyectos de Minecrifty.</p>
-        <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
-      </div>
-    </article>
-      </div>
+    </div>
+    <div class="rail reveal" tabindex="0" aria-label="Proyectos destacados" data-i18n-attr="aria-label:home.featured">
+      <a class="slide is-link" href="./projects/tictactoe/">
+        <div class="media slide-media">
+          <img src="./assets/img/tictactoe.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+          <span class="chip mono">01</span>
+        </div>
+        <div class="slide-body">
+          <p class="tag mono" data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</p>
+          <h3>TicTacToe</h3>
+          <p class="desc" data-i18n="p.ttt.desc">Sistema multijugador de tres en raya para Minecraft Bedrock, con los modos Clásico, Híbrido y Avanzado.</p>
+          <span class="more mono"><span data-i18n="common.details">Ver detalles</span> <span class="arrow" aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <article class="slide">
+        <div class="media slide-media">
+          <img src="./assets/img/crifty-verse.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+          <span class="chip mono">02</span>
+        </div>
+        <div class="slide-body">
+          <p class="tag mono" data-i18n="p.cv.tag">Ecosistema</p>
+          <h3>CriftyVerse</h3>
+          <p class="desc" data-i18n="p.cv.desc">Ecosistema de eventos y experiencias de Minecraft.</p>
+          <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
+        </div>
+      </article>
+      <article class="slide">
+        <div class="media slide-media">
+          <img src="./assets/img/crifty-studios.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+          <span class="chip mono">03</span>
+        </div>
+        <div class="slide-body">
+          <p class="tag mono" data-i18n="p.cs.tag">Identidad</p>
+          <h3>CriftyStudios</h3>
+          <p class="desc" data-i18n="p.cs.desc">Identidad para los desarrollos, addons y proyectos de Minecrifty.</p>
+          <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
+        </div>
+      </article>
+    </div>
+    <div class="container">
+      <p class="rail-more reveal"><a class="text-link mono" href="./projects/"><span data-i18n="home.all">Ver todos los proyectos</span> →</a></p>
     </div>
   </section>
 
-  <section class="section" style="padding-top:0">
-    <div class="container">
-      <div class="yt-band reveal">
-        <div>
-          <p class="mono band-handle">@Minecrifty</p>
-          <h2 data-i18n="home.band.h">Mi canal de YouTube</h2>
-          <p class="band-text" data-i18n="home.band.text">Videos, Shorts y todo lo que publico en mi canal.</p>
-        </div>
+  <section class="yt-strip">
+    <div class="container yt-strip-grid">
+      <a class="yt-word reveal" href="./youtube/" aria-label="YouTube">YouTube</a>
+      <div class="reveal" style="--d:100ms">
+        <p class="mono band-handle">@Minecrifty</p>
+        <p class="band-text" data-i18n="home.band.text">Videos, Shorts y todo lo que publico en mi canal.</p>
         <div class="actions">
-          <a class="btn btn-light" href="./youtube/"><span data-i18n="home.cta.yt">Ver canal de YouTube</span></a>
-          <a class="btn btn-outline-light" href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener"><span>YouTube</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a>
+          <a class="btn btn-primary" href="./youtube/"><span data-i18n="home.cta.yt">Ver canal de YouTube</span></a>
+          <a class="btn btn-ghost" href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener"><span>YouTube</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a>
         </div>
       </div>
     </div>
