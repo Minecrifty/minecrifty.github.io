@@ -23,30 +23,24 @@
 <body>
 <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 <header class="site-header">
-  <div class="rail-inner">
+  <div class="container bar">
     <a class="brand" href="../" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-      <img src="../assets/img/avatar.png" width="40" height="40" alt=""><span>Minecrifty</span>
+      <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
     </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
+      <ul>
+        <li><a href="../" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="../youtube/" aria-current="page" data-i18n="nav.youtube">YouTube</a></li>
+        <li><a href="../projects/" data-i18n="nav.projects">Proyectos</a></li>
+      </ul>
+    </nav>
     <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
       <button type="button" data-lang="es" aria-pressed="true">ES</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
-    <button class="nav-toggle" type="button" aria-controls="rail-panel" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
+    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
       <span></span><span></span>
     </button>
-    <div class="rail-panel" id="rail-panel">
-      <nav class="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
-        <ul>
-          <li><a href="../"><span class="n">01</span><span data-i18n="nav.home">Inicio</span></a></li>
-          <li><a href="../youtube/" aria-current="page"><span class="n">02</span><span data-i18n="nav.youtube">YouTube</span></a></li>
-          <li><a href="../projects/"><span class="n">03</span><span data-i18n="nav.projects">Proyectos</span></a></li>
-        </ul>
-      </nav>
-      <div class="rail-links mono">
-        <a href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener">YouTube ↗</a>
-        <a href="https://github.com/Minecrifty" target="_blank" rel="noopener">GitHub ↗</a>
-      </div>
-    </div>
   </div>
 </header>
 <div class="page">
@@ -101,7 +95,13 @@
 </main>
 <footer class="site-footer">
   <div class="container">
-    <p class="mono">© <span data-year>2026</span> Minecrifty</p>
+    <div class="footer-row">
+      <p class="mono">© <span data-year>2026</span> Minecrifty</p>
+      <p class="footer-links mono">
+        <a href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://github.com/Minecrifty" target="_blank" rel="noopener">GitHub ↗</a>
+      </p>
+    </div>
     <p class="footer-note" data-i18n="footer.note">Minecraft es una marca de Mojang Studios. Este sitio es independiente y no está afiliado a Mojang ni a Microsoft.</p>
   </div>
 </footer>

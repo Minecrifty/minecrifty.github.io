@@ -58,4 +58,4 @@ Edita `assets/js/config.js`:
 - Imágenes de TicTacToe y CriftyStudios (tarjetas y galería).
 - Descripciones de los tres modos de TicTacToe.
 - Enlaces de descarga de TicTacToe (el botón está desactivado hasta entonces).
-- Render final de la skin: reemplaza `assets/img/skin-render.webp` (y `og-image.jpg` si cambia).
+- Render final de la skin: reemplaza `assets/img/minecrifty-wave.webp` (y `og-image.jpg` si cambia).
