@@ -14,7 +14,19 @@
  *   Una clave en el frontend es pública por naturaleza; por eso la restricción de referente
  *   es obligatoria. Sin clave, la sección de estadísticas permanece oculta (no se inventan cifras).
  */
+/* Frases del globo junto al personaje
+ * -----------------------------------
+ * Cada vez que alguien entra a la página se muestra una de estas, al azar (evita repetir la anterior).
+ * Para agregar más, añade otra línea entre comillas separada por comas. No necesitan traducción:
+ * se muestran tal cual en español e inglés.
+ */
 window.SITE_CONFIG = {
+  greetings: [
+    "¡Hola!",
+    "weboz",
+    "¡Suscríbete y deja like!"
+  ],
+
   youtube: {
     handle: "@Minecrifty",
     channelUrl: "https://www.youtube.com/@Minecrifty",

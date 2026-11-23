@@ -223,6 +223,19 @@
     Promise.all(jobs).then(render);
   }
 
+  /* ---------------- Frase aleatoria del globo ---------------- */
+  function initGreeting() {
+    var el = document.querySelector("[data-greeting]");
+    var list = cfg.greetings;
+    if (!el || !list || !list.length) return;
+    var last = -1;
+    try { last = parseInt(sessionStorage.getItem("greeting"), 10); } catch (e) {}
+    var i = Math.floor(Math.random() * list.length);
+    if (list.length > 1 && i === last) i = (i + 1 + Math.floor(Math.random() * (list.length - 1))) % list.length;
+    el.textContent = list[i];
+    try { sessionStorage.setItem("greeting", String(i)); } catch (e) {}
+  }
+
   /* ---------------- Carrusel de proyectos ---------------- */
   function initRail() {
     var rail = document.querySelector(".rail");
@@ -276,6 +289,7 @@
     applyLang(initialLang(), false);
     initNav();
     initRail();
+    initGreeting();
     initMedia();
     initYouTube();
     initReveal();

@@ -25,7 +25,7 @@
 <header class="site-header">
   <div class="container bar">
     <a class="brand" href="./" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-      <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
+      <span class="brand-pix" aria-hidden="true"><img src="./assets/img/brand-pixel.png" width="39" height="56" alt=""></span><span>Minecrifty</span>
     </a>
     <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
       <ul>
@@ -47,14 +47,7 @@
 <main id="main">
   <section class="hero">
     <div class="container hero-grid">
-      <!-- Render de Minecrifty saludando (PNG con transparencia). Para cambiarlo, reemplaza assets/img/minecrifty-wave.webp -->
-      <div class="hero-art reveal">
-        <span class="hi mono" data-i18n="home.hi">¡Hola!</span>
-        <img class="platform" src="./assets/img/platform.webp" width="947" height="538" alt="" decoding="async">
-        <img class="wave" src="./assets/img/minecrifty-wave.webp" width="811" height="1000" alt="" alt="Minecrifty saludando, render de su skin de Minecraft" data-i18n-attr="alt:home.art.alt" fetchpriority="high" decoding="async">
-      </div>
-
-      <div class="hero-text reveal" style="--d:120ms">
+      <div class="hero-text reveal">
         <p class="eyebrow mono" data-i18n="home.role">Creador de contenido y desarrollador</p>
         <h1>Minecrifty<span class="px" aria-hidden="true"></span></h1>
         <p class="lead" data-i18n="home.lead">Contenido y proyectos relacionados con Minecraft: mi canal de YouTube y los addons y desarrollos que creo.</p>
@@ -76,6 +69,13 @@
           </a>
         </nav>
       </div>
+      <!-- Render de Minecrifty saludando (PNG con transparencia). Para cambiarlo, reemplaza assets/img/minecrifty-wave.webp -->
+      <div class="hero-art reveal" style="--d:120ms">
+        <span class="hi mono" data-greeting>¡Hola!</span>
+        <img class="platform" src="./assets/img/platform.webp" width="947" height="538" alt="" decoding="async">
+        <img class="wave" src="./assets/img/minecrifty-wave.webp" width="811" height="1000" alt="" alt="Minecrifty saludando, render de su skin de Minecraft" data-i18n-attr="alt:home.art.alt" fetchpriority="high" decoding="async">
+      </div>
+
     </div>
   </section>
 
@@ -132,16 +132,19 @@
     </div>
   </section>
 
-  <section class="yt-strip">
-    <div class="container yt-strip-grid">
-      <a class="yt-word reveal" href="./youtube/" aria-label="YouTube">YouTube</a>
-      <div class="reveal" style="--d:100ms">
-        <p class="mono band-handle">@Minecrifty</p>
-        <p class="band-text" data-i18n="home.band.text">Videos, Shorts y todo lo que publico en mi canal.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="./youtube/"><span data-i18n="home.cta.yt">Ver canal de YouTube</span></a>
-          <a class="btn btn-ghost" href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener"><span>YouTube</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a>
+  <section class="section yt-section">
+    <div class="container">
+      <div class="yt-card reveal">
+        <div class="yt-card-text">
+          <p class="mono band-handle">@Minecrifty</p>
+          <h2 data-i18n="home.band.h">Mi canal de YouTube</h2>
+          <p class="band-text" data-i18n="home.band.text">Videos, Shorts y todo lo que publico en mi canal.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./youtube/"><span data-i18n="home.cta.yt">Ver canal de YouTube</span></a>
+            <a class="btn btn-ghost" href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener"><span>YouTube</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a>
+          </div>
         </div>
+        <a class="yt-card-art" href="./youtube/" tabindex="-1" aria-hidden="true"><span class="play-block"></span></a>
       </div>
     </div>
   </section>
