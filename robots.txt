@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://minecrifty.github.io/sitemap.xml
