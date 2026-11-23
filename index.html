@@ -23,24 +23,26 @@
 <body>
 <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 <header class="site-header">
-  <div class="container bar">
-    <a class="brand" href="./" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-      <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
-    </a>
-    <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
-      <ul>
-        <li><a href="./" aria-current="page" data-i18n="nav.home">Inicio</a></li>
-        <li><a href="./youtube/" data-i18n="nav.youtube">YouTube</a></li>
-        <li><a href="./projects/" data-i18n="nav.projects">Proyectos</a></li>
-      </ul>
-    </nav>
-    <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
-      <button type="button" data-lang="es" aria-pressed="true">ES</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  <div class="container">
+    <div class="bar">
+      <a class="brand" href="./" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
+        <span class="mark" aria-hidden="true"></span><span>Minecrifty</span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
+        <ul>
+          <li><a href="./" aria-current="page" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="./youtube/" data-i18n="nav.youtube">YouTube</a></li>
+          <li><a href="./projects/" data-i18n="nav.projects">Proyectos</a></li>
+        </ul>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
+        <span></span><span></span>
+      </button>
     </div>
-    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menú" data-i18n-attr="aria-label:nav.menu">
-      <span></span><span></span>
-    </button>
   </div>
 </header>
 <div class="page">
@@ -70,29 +72,37 @@
         <h2 data-i18n="home.featured">Proyectos destacados</h2>
         <a class="text-link mono" href="./projects/"><span data-i18n="home.all">Ver todos los proyectos</span> →</a>
       </div>
-      <div class="features">
-        <a class="feature is-link reveal" href="./projects/tictactoe/">
-      <div class="media feature-media"><img src="./assets/img/tictactoe.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
-      <div class="feature-text">
-        <p class="num mono">01</p>
+      <div class="cards">
+      <a class="card card-wide is-link reveal" href="./projects/tictactoe/">
+      <div class="media card-media">
+        <img src="./assets/img/tictactoe.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+        <span class="chip mono">01</span>
+      </div>
+      <div class="card-body">
         <p class="tag mono" data-i18n="p.ttt.tag">Addon · Minecraft Bedrock</p>
         <h3>TicTacToe</h3>
         <p class="desc" data-i18n="p.ttt.desc">Sistema multijugador de tres en raya para Minecraft Bedrock, con los modos Clásico, Híbrido y Avanzado.</p>
-        <span class="more mono"><span data-i18n="common.details">Ver detalles</span> →</span>
+        <span class="more mono"><span data-i18n="common.details">Ver detalles</span> <span class="arrow" aria-hidden="true">→</span></span>
       </div>
-    </a><article class="feature reveal">
-      <div class="media feature-media"><img src="./assets/img/crifty-verse.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
-      <div class="feature-text">
-        <p class="num mono">02</p>
+    </a>
+      <article class="card  reveal">
+      <div class="media card-media">
+        <img src="./assets/img/crifty-verse.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+        <span class="chip mono">02</span>
+      </div>
+      <div class="card-body">
         <p class="tag mono" data-i18n="p.cv.tag">Ecosistema</p>
         <h3>CriftyVerse</h3>
         <p class="desc" data-i18n="p.cv.desc">Ecosistema de eventos y experiencias de Minecraft.</p>
         <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
       </div>
-    </article><article class="feature reveal">
-      <div class="media feature-media"><img src="./assets/img/crifty-studios.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
-      <div class="feature-text">
-        <p class="num mono">03</p>
+    </article>
+      <article class="card  reveal">
+      <div class="media card-media">
+        <img src="./assets/img/crifty-studios.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+        <span class="chip mono">03</span>
+      </div>
+      <div class="card-body">
         <p class="tag mono" data-i18n="p.cs.tag">Identidad</p>
         <h3>CriftyStudios</h3>
         <p class="desc" data-i18n="p.cs.desc">Identidad para los desarrollos, addons y proyectos de Minecrifty.</p>
@@ -103,14 +113,14 @@
     </div>
   </section>
 
-  <section class="yt-band">
-    <div class="container yt-band-grid">
-      <div class="reveal">
-        <p class="mono band-handle">@Minecrifty</p>
-        <h2 data-i18n="home.band.h">Mi canal de YouTube</h2>
-      </div>
-      <div class="reveal" style="--d:100ms">
-        <p class="band-text" data-i18n="home.band.text">Videos, Shorts y todo lo que publico en mi canal.</p>
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="yt-band reveal">
+        <div>
+          <p class="mono band-handle">@Minecrifty</p>
+          <h2 data-i18n="home.band.h">Mi canal de YouTube</h2>
+          <p class="band-text" data-i18n="home.band.text">Videos, Shorts y todo lo que publico en mi canal.</p>
+        </div>
         <div class="actions">
           <a class="btn btn-light" href="./youtube/"><span data-i18n="home.cta.yt">Ver canal de YouTube</span></a>
           <a class="btn btn-outline-light" href="https://www.youtube.com/@Minecrifty" target="_blank" rel="noopener"><span>YouTube</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a>
