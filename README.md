@@ -15,7 +15,8 @@ assets/
   css/style.css                Estilos (variables de color al inicio: --accent = #BE1B8D)
   js/main.js                   Idioma, menú móvil, animaciones, YouTube
   js/i18n.js                   Textos ES / EN
-  js/config.js                 Videos, Shorts y clave opcional de YouTube
+  js/config.js                 Videos, Shorts, clave opcional de YouTube y datos de Firebase
+  js/auth.js                   Iniciar sesión / Registrarse (Firebase Authentication)
   img/                         Imágenes optimizadas y favicons
 ```
 

@@ -14,6 +14,13 @@
  *   Una clave en el frontend es pública por naturaleza; por eso la restricción de referente
  *   es obligatoria. Sin clave, la sección de estadísticas permanece oculta (no se inventan cifras).
  */
+/* Cuentas (Iniciar sesión / Registrarse)
+ * --------------------------------------
+ * Usa Firebase Authentication (gratis). Pega aquí los datos de tu app web de Firebase
+ * (Configuración del proyecto → Tus apps → Configuración del SDK). Estos valores son públicos
+ * por diseño; la seguridad la dan los "Dominios autorizados" de Firebase. Mientras estén vacíos,
+ * los botones abren el panel pero avisan que las cuentas no están activadas.
+ */
 /* Frases del globo junto al personaje
  * -----------------------------------
  * Cada vez que alguien entra a la página se muestra una de estas, al azar (evita repetir la anterior).
@@ -21,6 +28,13 @@
  * se muestran tal cual en español e inglés.
  */
 window.SITE_CONFIG = {
+  firebase: {
+    apiKey: "AIzaSyB_LhoBiOystUvmfiWKYPmYYRarXEnmIZQ",
+    authDomain: "minecrifty-web.firebaseapp.com",
+    projectId: "minecrifty-web",
+    appId: "1:90832039161:web:3df02e0b9a3bfe1e04c628"
+  },
+
   greetings: [
     "¡Hola!",
     "weboz",

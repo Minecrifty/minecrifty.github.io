@@ -400,6 +400,42 @@ button { font: inherit; color: inherit; }
 .yt-section-end { padding-bottom: 1.5rem; }
 .yt-stats-section { padding-top: 1.5rem; }
 
+/* ---------- Cuenta: panel de acceso ---------- */
+.auth-user { background: var(--surface-2); color: var(--text); border-right: 1px solid var(--accent) !important; cursor: default !important; max-width: 11rem; overflow: hidden; text-overflow: ellipsis; text-transform: none !important; }
+.auth-logout { background: var(--accent); color: #fff; }
+.auth-logout:hover { background: var(--accent-hover); }
+.auth-open { overflow: hidden; }
+.auth-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 1rem; }
+.auth-modal[hidden] { display: none; }
+.auth-backdrop { position: absolute; inset: 0; background: rgba(5, 5, 8, 0.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.auth-dialog { position: relative; width: min(100%, 410px); max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 1.5rem 1.5rem 1.75rem; background: var(--surface); border: 2px solid var(--accent); border-radius: calc(var(--radius) + 4px); box-shadow: var(--bevel), 0 30px 70px -20px var(--accent-glow); }
+.auth-x { position: absolute; top: 0.5rem; right: 0.6rem; width: 34px; height: 34px; border: 0; background: none; color: var(--muted); font-size: 1.6rem; line-height: 1; cursor: pointer; }
+.auth-x:hover { color: var(--text); }
+.auth-tabs { display: flex; margin: 0.4rem 2rem 1.25rem 0; border: 1px solid var(--accent); border-radius: var(--radius); overflow: hidden; }
+.auth-tabs button { flex: 1; padding: 0.55rem 0.5rem; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-family: var(--mono); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.auth-tabs button + button { border-left: 1px solid var(--accent); }
+.auth-tabs button[aria-selected="true"] { background: var(--accent); color: #fff; }
+.auth-title { margin-bottom: 1rem; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; }
+.auth-msg { margin-bottom: 1rem; padding: 0.65rem 0.8rem; border-radius: var(--radius); font-size: 0.88rem; border: 1px solid var(--line-strong); }
+.auth-msg.is-error { border-color: #d6455d; background: rgba(214, 69, 93, 0.12); color: #ffb3bf; }
+.auth-msg.is-ok { border-color: #3fae6a; background: rgba(63, 174, 106, 0.12); color: #a8e6bf; }
+.auth-form { display: grid; gap: 0.9rem; }
+.auth-field { display: grid; gap: 0.35rem; }
+.auth-field[hidden] { display: none; }
+.auth-field span { color: var(--muted); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.auth-field input { width: 100%; padding: 0.7rem 0.8rem; background: var(--bg); color: var(--text); border: 1px solid var(--line-strong); border-radius: var(--radius); font: inherit; }
+.auth-field input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.auth-submit { width: 100%; justify-content: center; margin-top: 0.2rem; }
+.auth-link { display: block; margin: 0.9rem auto 0; padding: 0; border: 0; background: none; color: var(--accent-text); font-size: 0.85rem; cursor: pointer; }
+.auth-link[hidden] { display: none; }
+.auth-link:hover { text-decoration: underline; }
+.auth-or { display: flex; align-items: center; gap: 0.8rem; margin: 1.1rem 0; color: var(--faint); font-size: 0.74rem; text-transform: uppercase; }
+.auth-or::before, .auth-or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.auth-google { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; padding: 0.7rem; background: #fff; color: #1f1f1f; border: 0; border-radius: var(--radius); font: inherit; font-weight: 600; font-size: 0.92rem; cursor: pointer; box-shadow: var(--bevel); }
+.auth-google:hover { background: #f1f1f4; }
+.auth-google svg { width: 18px; height: 18px; }
+.auth-modal button:disabled, .auth-modal input:disabled { opacity: 0.55; cursor: not-allowed; }
+
 /* ---------- Pie ---------- */
 .site-footer { padding-block: 2.25rem; background: var(--bg-2); color: var(--muted); font-size: 0.85rem; }
 .footer-row { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; justify-content: space-between; }
