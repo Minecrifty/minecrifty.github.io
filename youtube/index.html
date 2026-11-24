@@ -26,7 +26,7 @@
 <header class="site-header">
   <div class="container bar">
     <a class="brand" href="../" aria-label="Minecrifty, ir al inicio" data-i18n-attr="aria-label:brand.label">
-      <span class="brand-pix" aria-hidden="true"><img class="b1" src="../assets/img/brand-1.png" width="50" height="56" alt=""><img class="b2" src="../assets/img/brand-2.png" width="50" height="56" alt=""></span><span>Minecrifty</span>
+      <span class="brand-pix" aria-hidden="true"><img class="b1" src="../assets/img/brand-1.png" width="42" height="47" alt=""><img class="b2" src="../assets/img/brand-2.png" width="42" height="47" alt=""></span><span>Minecrifty</span>
     </a>
     <nav class="site-nav" id="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.label">
       <ul>
@@ -46,7 +46,7 @@
 </header>
 <div class="page">
 <main id="main">
-  <header class="page-head">
+  <header class="page-head head-yt">
     <div class="container reveal">
       <p class="eyebrow mono">02 · @Minecrifty</p>
       <h1 data-i18n="yt.h1">Canal de YouTube</h1>
@@ -72,8 +72,10 @@
 
   <section class="section">
     <div class="container">
-      <div class="section-head reveal"><h2 data-i18n="yt.featured.h">Videos destacados</h2></div>
-      <div class="yt-grid" data-yt="featured" data-stagger>
+      <div class="section-head reveal"><h2 data-i18n="yt.shorts.h">Shorts recientes</h2></div>
+      <div class="yt-grid shorts" data-yt="shorts" data-stagger>
+        <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
+        <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
         <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
         <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
         <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
@@ -83,9 +85,8 @@
 
   <section class="section" style="padding-top:0">
     <div class="container">
-      <div class="section-head reveal"><h2 data-i18n="yt.shorts.h">Shorts</h2></div>
-      <div class="yt-grid shorts" data-yt="shorts" data-stagger>
-        <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
+      <div class="section-head reveal"><h2 data-i18n="yt.featured.h">Videos recientes</h2></div>
+      <div class="yt-grid" data-yt="featured" data-stagger>
         <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
         <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
         <div class="yt-item reveal"><div class="yt-box"><span class="media-placeholder mono" data-i18n="common.soon">Próximamente</span></div></div>
@@ -108,6 +109,7 @@
 </footer>
 </div>
 <script src="../assets/js/config.js"></script>
+<script src="../assets/js/videos.js"></script>
 <script src="../assets/js/i18n.js"></script>
 <script src="../assets/js/main.js"></script>
 </body>

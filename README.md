@@ -59,3 +59,13 @@ Edita `assets/js/config.js`:
 - Descripciones de los tres modos de TicTacToe.
 - Enlaces de descarga de TicTacToe (el botón está desactivado hasta entonces).
 - Render final de la skin: reemplaza `assets/img/minecrifty-wave.webp` (y `og-image.jpg` si cambia).
+
+## Videos de YouTube (automático)
+
+La página de YouTube muestra los Shorts y videos más recientes leyendo `assets/js/videos.js`.
+Ese archivo lo genera `tools/update_videos.py` (sin claves ni servicios de pago).
+
+- **Automático:** al subir el sitio a GitHub, el flujo `.github/workflows/update-videos.yml` lo actualiza cada 6 horas.
+  La primera vez: pestaña *Actions* → *Actualizar videos de YouTube* → *Run workflow*.
+- **Manual:** `python3 tools/update_videos.py` y vuelve a subir `assets/js/videos.js`.
+- Para fijar videos concretos, escribe sus IDs en `assets/js/config.js` (`featuredVideos` / `shorts`); tienen prioridad.

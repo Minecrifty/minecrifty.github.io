@@ -150,10 +150,16 @@
     return item;
   }
 
-  function renderVideos(container, ids, titles) {
-    if (!container || !ids || !ids.length) return; // se conservan los "Próximamente"
+  function renderVideos(container, items, titles, max) {
+    if (!container || !items || !items.length) return; // se conservan los "Próximamente"
     container.textContent = "";
-    ids.forEach(function (id) { container.appendChild(ytItem(id, titles && titles[id])); });
+    items.slice(0, max || 12).forEach(function (it) {
+      container.appendChild(ytItem(it.id, (titles && titles[it.id]) || it.title));
+    });
+  }
+
+  function toItems(list) {
+    return (list || []).map(function (v) { return typeof v === "string" ? { id: v } : v; });
   }
 
   function fetchJSON(url) {
@@ -185,13 +191,17 @@
     var statsSection = document.querySelector("[data-yt-stats]");
     if (!featured && !shorts && !statsSection) return;
 
+    var auto = window.SITE_VIDEOS || {};
+    // Los IDs escritos a mano en config.js tienen prioridad; si no hay, se usan los automáticos (videos.js)
+    var vids = (yt.featuredVideos && yt.featuredVideos.length) ? toItems(yt.featuredVideos) : toItems(auto.videos);
+    var shs = (yt.shorts && yt.shorts.length) ? toItems(yt.shorts) : toItems(auto.shorts);
     var key = yt.apiKey;
-    var ids = (yt.featuredVideos || []).concat(yt.shorts || []);
+    var ids = vids.concat(shs).map(function (v) { return v.id; });
     var titles = {};
 
     function render() {
-      renderVideos(featured, yt.featuredVideos, titles);
-      renderVideos(shorts, yt.shorts, titles);
+      renderVideos(featured, vids, titles, 6);
+      renderVideos(shorts, shs, titles, 10);
       initMedia();
     }
 

@@ -85,8 +85,8 @@ button { font: inherit; color: inherit; }
 .bar { position: relative; display: flex; align-items: center; gap: 2rem; height: 100%; }
 
 .brand { display: inline-flex; align-items: center; gap: 0.7rem; margin-right: auto; font-weight: 800; font-size: 1.12rem; letter-spacing: -0.02em; }
-.brand-pix { position: relative; display: block; flex: none; height: 56px; width: 50px; }
-.brand-pix img { position: absolute; inset: 0; width: 50px; height: 56px; image-rendering: pixelated; transition: opacity 0.2s var(--ease); }
+.brand-pix { position: relative; display: block; flex: none; height: 47px; width: 42px; }
+.brand-pix img { position: absolute; inset: 0; width: 42px; height: 47px; image-rendering: pixelated; transition: opacity 0.2s var(--ease); }
 .brand-pix .b2 { opacity: 0; }
 .brand:hover .brand-pix .b1, .brand:focus-visible .brand-pix .b1 { opacity: 0; }
 .brand:hover .brand-pix .b2, .brand:focus-visible .brand-pix .b2 { opacity: 1; }
@@ -200,14 +200,14 @@ button { font: inherit; color: inherit; }
 
 .hero-art { position: relative; justify-self: center; width: min(100%, 720px); aspect-ratio: 1 / 1.06; }
 .hero-art .wave {
-  position: absolute; left: 4%; bottom: 2%; width: 92%; height: auto;
+  position: absolute; left: 4%; bottom: -4%; width: 92%; height: auto;
   filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.45));
   animation: bob 5s ease-in-out infinite;
 }
 .hi {
-  position: absolute; z-index: 2; left: 0; top: 6%; max-width: 9.5rem; padding: 0.45rem 0.85rem; border-radius: 6px; line-height: 1.25; text-align: center;
-  background: var(--accent); color: #fff; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.03em;
-  transform: rotate(-6deg); box-shadow: var(--bevel), 3px 3px 0 var(--accent-deep);
+  position: absolute; z-index: 2; left: 68%; top: 11%; max-width: 14rem; padding: 0.7rem 1.2rem; border-radius: 8px; line-height: 1.25; text-align: center;
+  background: var(--accent); color: #fff; font-size: 1.3rem; font-weight: 700; letter-spacing: 0.02em;
+  transform: rotate(4deg); box-shadow: var(--bevel), 3px 3px 0 var(--accent-deep);
 }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
@@ -233,7 +233,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 860px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-art { order: -1; width: min(100%, 340px); }
-  .hi { left: -2%; top: 0; max-width: 7.6rem; padding: 0.35rem 0.7rem; font-size: 0.8rem; }
+  .hi { left: 61%; top: 3%; max-width: 9rem; padding: 0.45rem 0.8rem; font-size: 0.98rem; }
 }
 
 /* ---------- Secciones ---------- */
@@ -394,10 +394,20 @@ button { font: inherit; color: inherit; }
   .btn:hover, .menu-btn:hover, .mode:hover, .slide.is-link:hover, .js .prow.is-link.reveal.is-visible:hover, .prow.is-link:hover { transform: none; }
 }
 
-/* Cabecera de TicTacToe: captura del juego como fondo; el tablero queda detrás del título */
-.head-ttt::before { opacity: 0.95; background: var(--bg) url("../img/tictactoe-bg.webp") center 60% / cover no-repeat; }
-.head-ttt::after { background: linear-gradient(90deg, rgba(16,16,20,.45), rgba(16,16,20,.3) 50%, rgba(16,16,20,.55)), linear-gradient(180deg, transparent 65%, var(--bg)); }
+/* Cabecera de TicTacToe: captura completa del juego como fondo, oscurecida para leer el texto */
+.head-ttt::before { opacity: 1; background: var(--bg) url("../img/tictactoe-bg.webp") center 62% / cover no-repeat; }
+.head-ttt::after { background: linear-gradient(90deg, rgba(16,16,20,.78), rgba(16,16,20,.6) 55%, rgba(16,16,20,.72)), linear-gradient(180deg, transparent 65%, var(--bg)); }
 .head-ttt h1, .head-ttt .lead { text-shadow: 0 2px 18px rgba(0,0,0,.7); }
-@media (min-width: 900px) {
-  .head-ttt::before { background-size: 140% auto; background-position: 100% 22%; }
+
+/* Cabecera de YouTube: banner del canal oscurecido */
+.head-yt::before { opacity: 1; background: var(--bg) url("../img/yt-bg.webp") center / cover no-repeat; }
+.head-yt::after { background: linear-gradient(90deg, rgba(16,16,20,.88), rgba(16,16,20,.7) 55%, rgba(16,16,20,.8)), linear-gradient(180deg, transparent 60%, var(--bg)); }
+.head-yt h1, .head-yt .lead { text-shadow: 0 2px 18px rgba(0,0,0,.7); }
+
+/* Marco para la imagen del addon (solo en la página de TicTacToe) */
+.cover-frame {
+  padding: 12px; background: linear-gradient(145deg, var(--surface-2), var(--surface));
+  border: 2px solid var(--accent); border-radius: 14px;
+  box-shadow: var(--bevel), 0 0 0 5px rgba(190, 27, 141, 0.16), 0 26px 60px -24px var(--accent-glow);
 }
+.cover-frame img { inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); border-radius: 6px; border: 1px solid var(--line-strong); }
