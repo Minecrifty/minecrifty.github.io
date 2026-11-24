@@ -10,13 +10,15 @@ youtube/index.html             YouTube (/youtube/)
 projects/index.html            Catálogo de proyectos (/projects/)
 projects/tictactoe/index.html  Detalle de TicTacToe (/projects/tictactoe/)
 404.html                       Página de error
+supabase/setup.sql             Tablas, reglas y almacenamiento de Supabase (se ejecuta una vez)
 favicon.ico · robots.txt · sitemap.xml · .nojekyll
 assets/
   css/style.css                Estilos (variables de color al inicio: --accent = #BE1B8D)
   js/main.js                   Idioma, menú móvil, animaciones, YouTube
   js/i18n.js                   Textos ES / EN
-  js/config.js                 Videos, Shorts, clave opcional de YouTube y datos de Firebase
-  js/auth.js                   Iniciar sesión / Registrarse (Firebase Authentication)
+  js/config.js                 Videos, Shorts, clave opcional de YouTube y datos de Supabase
+  js/auth.js                   Iniciar sesión / Registrarse y menú del círculo de usuario (Supabase Auth)
+  js/profile.js                Panel de Perfil: foto, usuario, nametag y skin de Bedrock (Supabase)
   js/char.js                   Personaje 3D del panel de acceso (CSS 3D a partir de la skin)
   img/                         Imágenes optimizadas y favicons
   img/skin/                    Skin 64×64 en tres versiones: normal.png, curious.png, closed.png
@@ -35,6 +37,19 @@ y abrir http://localhost:8000/
 ## Publicar
 
 Sube el contenido de esta carpeta a la raíz del repositorio `Minecrifty/minecrifty.github.io` (rama principal). En *Settings → Pages* elige "Deploy from a branch" → `main` → `/ (root)`. Si más adelante usas un dominio propio o un repositorio de proyecto (no de usuario), hay que cambiar las URLs de `canonical`, `og:` y `sitemap.xml`.
+
+## Cuentas con Supabase
+
+Las cuentas, los perfiles y los archivos (foto y skin) viven en Supabase (plan gratuito, sin tarjeta).
+
+1. Crea un proyecto en https://supabase.com (New project).
+2. En **SQL Editor → New query** pega todo `supabase/setup.sql` y pulsa **Run**. Crea la tabla `profiles`, las reglas de seguridad (cada usuario solo ve y edita lo suyo) y los buckets `avatars` y `skins`.
+3. En **Project Settings → API** copia la *Project URL* y la clave *anon public* y pégalas en `assets/js/config.js` (`supabase.url` y `supabase.anonKey`). La clave `service_role` **nunca** va en el sitio.
+4. En **Authentication → URL Configuration**: *Site URL* = `https://minecrifty.github.io` y en *Redirect URLs* añade `https://minecrifty.github.io/**` (y `http://localhost:8000/**` para pruebas locales).
+5. Google: **Authentication → Providers → Google**, activa y pega el Client ID y Secret de Google Cloud. En Google Cloud, como URI de redireccionamiento autorizado usa la que Supabase muestra en esa pantalla.
+6. Opcional: en **Authentication → Providers → Email** puedes desactivar "Confirm email" si no quieres que los nuevos usuarios confirmen su correo.
+
+Datos que guarda cada perfil: nombre de usuario, URL de la foto, nametag de Minecraft Bedrock y URL de la skin.
 
 ## Idiomas
 

@@ -14,12 +14,13 @@
  *   Una clave en el frontend es pública por naturaleza; por eso la restricción de referente
  *   es obligatoria. Sin clave, la sección de estadísticas permanece oculta (no se inventan cifras).
  */
-/* Cuentas (Iniciar sesión / Registrarse)
- * --------------------------------------
- * Usa Firebase Authentication (gratis). Pega aquí los datos de tu app web de Firebase
- * (Configuración del proyecto → Tus apps → Configuración del SDK). Estos valores son públicos
- * por diseño; la seguridad la dan los "Dominios autorizados" de Firebase. Mientras estén vacíos,
- * los botones abren el panel pero avisan que las cuentas no están activadas.
+/* Cuentas y perfiles (Iniciar sesión / Registrarse / Perfil)
+ * ----------------------------------------------------------
+ * Usa Supabase (gratis): autenticación, base de datos de perfiles y almacenamiento de fotos y skins.
+ * Pasos en README.md (sección "Cuentas con Supabase") y SQL en supabase/setup.sql.
+ * Pega aquí la "Project URL" y la clave "anon public" (Project Settings → API). Ambas son públicas
+ * por diseño; la seguridad la dan las reglas RLS del SQL. NUNCA pegues aquí la clave "service_role".
+ * Mientras estén vacías, los botones abren el panel pero avisan que las cuentas no están activadas.
  */
 /* Frases del globo junto al personaje
  * -----------------------------------
@@ -28,11 +29,9 @@
  * se muestran tal cual en español e inglés.
  */
 window.SITE_CONFIG = {
-  firebase: {
-    apiKey: "AIzaSyB_LhoBiOystUvmfiWKYPmYYRarXEnmIZQ",
-    authDomain: "minecrifty-web.firebaseapp.com",
-    projectId: "minecrifty-web",
-    appId: "1:90832039161:web:3df02e0b9a3bfe1e04c628"
+  supabase: {
+    url: "",
+    anonKey: ""
   },
 
   greetings: [
