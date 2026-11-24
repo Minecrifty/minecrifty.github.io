@@ -30,13 +30,27 @@
  */
 window.SITE_CONFIG = {
   supabase: {
-    url: "",
-    anonKey: ""
+    url: "https://xkdslgotlhqlecftkjnc.supabase.co",
+    anonKey: "sb_publishable_Ba8PgtzmMw-w-mV5eUN2qw_ViP80Lqh"
   },
 
   greetings: [
     "¡Hola!",
     "weboz",
+  	"Extraño a mi ex",
+  	"Soy Noob",
+  	"Soy Pro",
+  	"Soy God",
+  	"Imaginate estar formado por 6 cubos",
+  	"Mincerifty",
+  	"309",
+  	"456",
+  	"67",
+  	"Nezcuik",
+  	"Yupi?",
+  	"Tengo mucho sueño",
+  	"No dormí nada anoche",
+  	"421"m
     "¡Suscríbete y deja like!"
   ],
 
