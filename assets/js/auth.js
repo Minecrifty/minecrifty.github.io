@@ -371,6 +371,7 @@
     var bar = document.querySelector(".site-header .bar");
     if (!bar || menu) return;
     menu = el("div", "user-menu");
+    menu.hidden = true;
     menu.innerHTML =
       '<button type="button" class="user-btn" aria-haspopup="menu" aria-expanded="false" data-i18n-attr="aria-label:user.menu" aria-label="Menú de usuario"><span class="avatar"></span></button>' +
       '<div class="user-pop" role="menu" hidden>' +
@@ -430,6 +431,7 @@
     var active = !!user || (!resolved && !!hint && configured);
     document.documentElement.classList.toggle("has-user", active);
     if (!menu) return;
+    menu.hidden = !active;   // no depende solo del CSS: sin sesión el círculo nunca se muestra
     var name = displayName();
     var url = (profile && profile.avatar_url) || (!user && !resolved && hint && hint.a) || "";
     paintAvatar(menu.querySelector(".avatar"), name, url);

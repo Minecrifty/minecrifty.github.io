@@ -440,8 +440,8 @@ html.has-user .auth-split, html.has-user .nav-auth { display: none !important; }
 .avatar { display: inline-grid; place-items: center; width: 100%; height: 100%; overflow: hidden; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--mono); font-weight: 800; line-height: 1; user-select: none; }
 .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-.user-menu { position: relative; display: none; flex: none; }
-.has-user .user-menu { display: block; }
+.user-menu { position: relative; display: block; flex: none; }
+.user-menu[hidden], .user-pop[hidden] { display: none !important; }
 .user-btn { display: block; width: 40px; height: 40px; padding: 2px; border: 2px solid var(--accent); border-radius: 50%; background: var(--surface-2); cursor: pointer; transition: box-shadow 0.2s, transform 0.2s var(--ease); }
 .user-btn .avatar { font-size: 1rem; }
 .user-btn:hover, .user-btn[aria-expanded="true"] { box-shadow: 0 0 0 4px var(--accent-soft); }
