@@ -356,8 +356,12 @@ button { font: inherit; color: inherit; }
 .stat dd { margin-top: 0.3rem; font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; }
 .note { margin-top: 0.85rem; color: var(--faint); font-size: 0.76rem; }
 
-.yt-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr)); }
-.yt-grid.shorts { grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); }
+.yt-grid { display: grid; gap: 1.75rem; grid-template-columns: 1fr; max-width: 760px; margin-inline: auto; }
+.yt-grid.shorts { max-width: 340px; }
+/* Marco de cada video */
+.yt-item { padding: 0.85rem; background: var(--surface); border: 2px solid var(--accent); border-radius: calc(var(--radius) + 4px); box-shadow: var(--bevel), 0 18px 40px -22px var(--accent-glow); transition: transform 0.25s var(--ease), box-shadow 0.25s; }
+.yt-item:hover { box-shadow: var(--bevel), 0 20px 44px -14px var(--accent-glow); }
+.yt-item .yt-box { border-color: var(--line-strong); }
 .yt-box { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); }
 .shorts .yt-box { aspect-ratio: 9 / 16; }
 .yt-box > button, .yt-box > iframe, .yt-box > .media-placeholder { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -367,7 +371,7 @@ button { font: inherit; color: inherit; }
 .yt-play { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; background: var(--accent); border-radius: var(--radius); box-shadow: var(--bevel); transition: transform 0.2s var(--ease); }
 .yt-play::after { content: ""; position: absolute; left: 23px; top: 17px; border-style: solid; border-width: 12px 0 12px 19px; border-color: transparent transparent transparent #fff; }
 .yt-box > button:hover .yt-play { transform: scale(1.08); }
-.yt-title { margin-top: 0.65rem; color: var(--muted); font-size: 0.93rem; }
+.yt-title { margin-top: 0.8rem; padding-inline: 0.2rem; color: var(--text); font-size: 0.95rem; font-weight: 600; }
 .yt-cta { margin-top: 2rem; }
 
 /* ---------- Pie ---------- */
