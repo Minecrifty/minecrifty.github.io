@@ -405,10 +405,10 @@ button { font: inherit; color: inherit; }
 .auth-logout { background: var(--accent); color: #fff; }
 .auth-logout:hover { background: var(--accent-hover); }
 .auth-open { overflow: hidden; }
-.auth-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 1rem; }
+.auth-modal { position: fixed; inset: 0; z-index: 200; display: flex; overflow-y: auto; padding: 1rem; }
 .auth-modal[hidden] { display: none; }
-.auth-backdrop { position: absolute; inset: 0; background: rgba(5, 5, 8, 0.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-.auth-dialog { position: relative; width: min(100%, 410px); max-height: calc(100dvh - 2rem); overflow-y: auto; padding: 1.5rem 1.5rem 1.75rem; background: var(--surface); border: 2px solid var(--accent); border-radius: calc(var(--radius) + 4px); box-shadow: var(--bevel), 0 30px 70px -20px var(--accent-glow); }
+.auth-backdrop { position: fixed; inset: 0; background: rgba(5, 5, 8, 0.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.auth-dialog { position: relative; width: min(100%, 410px); padding: 1.5rem 1.5rem 1.75rem; background: var(--surface); border: 2px solid var(--accent); border-radius: calc(var(--radius) + 4px); box-shadow: var(--bevel), 0 30px 70px -20px var(--accent-glow); }
 .auth-x { position: absolute; top: 0.5rem; right: 0.6rem; width: 34px; height: 34px; border: 0; background: none; color: var(--muted); font-size: 1.6rem; line-height: 1; cursor: pointer; }
 .auth-x:hover { color: var(--text); }
 .auth-tabs { display: flex; margin: 0.4rem 2rem 1.25rem 0; border: 1px solid var(--accent); border-radius: var(--radius); overflow: hidden; }
@@ -434,6 +434,46 @@ button { font: inherit; color: inherit; }
 .auth-google { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; padding: 0.7rem; background: #fff; color: #1f1f1f; border: 0; border-radius: var(--radius); font: inherit; font-weight: 600; font-size: 0.92rem; cursor: pointer; box-shadow: var(--bevel); }
 .auth-google:hover { background: #f1f1f4; }
 .auth-google svg { width: 18px; height: 18px; }
+/* ---------- Personaje 3D junto al panel ---------- */
+.auth-wrap { position: relative; z-index: 1; margin: auto; display: flex; flex-direction: column; align-items: center; width: min(100%, 410px); }
+.auth-stage { --u: 5px; --ry: 16deg; position: relative; flex: none; width: 100%; height: 190px; perspective: 900px; }
+@media (min-width: 840px) {
+  .auth-wrap { flex-direction: row; width: auto; gap: 0.5rem; }
+  .auth-stage { --u: 9px; --ry: 28deg; width: 250px; height: 350px; }
+}
+.mc { position: absolute; left: 50%; top: 50%; width: calc(var(--u) * 16); height: calc(var(--u) * 32); margin: calc(var(--u) * -16) 0 0 calc(var(--u) * -8); transform-style: preserve-3d; transform: rotateX(-9deg) rotateY(var(--ry)); }
+.mc-jump, .mc-limb, .mc-cub { position: absolute; transform-style: preserve-3d; }
+.mc-jump { inset: 0; }
+.mc-face { position: absolute; left: 50%; top: 50%; backface-visibility: hidden; background-repeat: no-repeat; image-rendering: pixelated; }
+.mc-f-top { filter: brightness(1.12); }
+.mc-f-left { filter: brightness(0.88); }
+.mc-f-back { filter: brightness(0.85); }
+.mc-f-right { filter: brightness(0.8); }
+.mc-f-bottom { filter: brightness(0.6); }
+.mc-arm-r, .mc-arm-l, .mc-leg-r, .mc-leg-l { transition: transform 0.32s cubic-bezier(0.3, 1.5, 0.5, 1); }
+.mc-shadow { position: absolute; left: 50%; top: 50%; width: calc(var(--u) * 13); height: calc(var(--u) * 3); margin: calc(var(--u) * 15) 0 0 calc(var(--u) * -6.5); border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), transparent); }
+/* Festejo: brazos y piernas abiertos en V, con saltito */
+.auth-stage[data-state="celebrate"] .mc-arm-r { transform: rotateZ(148deg); }
+.auth-stage[data-state="celebrate"] .mc-arm-l { transform: rotateZ(-148deg); }
+.auth-stage[data-state="celebrate"] .mc-leg-r { transform: rotateZ(16deg); }
+.auth-stage[data-state="celebrate"] .mc-leg-l { transform: rotateZ(-16deg); }
+.auth-stage[data-state="celebrate"] .mc-jump { animation: mc-jump 0.5s ease-in-out infinite; }
+.auth-stage[data-state="celebrate"] .mc-shadow { animation: mc-shadow 0.5s ease-in-out infinite; }
+@keyframes mc-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--u) * -2.4)); } }
+@keyframes mc-shadow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.72); opacity: 0.6; } }
+.mc-confetti-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+.mc-confetti { position: absolute; left: 50%; top: 38%; border-radius: 2px; background: var(--c); opacity: 0; animation: mc-confetti 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) forwards; }
+@keyframes mc-confetti {
+  0% { opacity: 0; transform: translate(0, 0) rotate(0); }
+  12% { opacity: 1; }
+  40% { transform: translate(calc(var(--dx) * 0.75), var(--up)) rotate(calc(var(--rot) * 0.4)); }
+  100% { opacity: 0; transform: translate(var(--dx), calc(var(--up) + var(--fall))) rotate(var(--rot)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-limb { transition: none; }
+  .auth-stage[data-state="celebrate"] .mc-jump, .auth-stage[data-state="celebrate"] .mc-shadow { animation: none; }
+}
+
 .auth-modal button:disabled, .auth-modal input:disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* ---------- Pie ---------- */

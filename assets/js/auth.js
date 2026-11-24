@@ -35,6 +35,8 @@
     modal.hidden = true;
     modal.innerHTML =
       '<div class="auth-backdrop" data-auth-close></div>' +
+      '<div class="auth-wrap">' +
+      '<div class="auth-stage" aria-hidden="true"></div>' +
       '<div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">' +
       '  <button type="button" class="auth-x" data-auth-close data-i18n-attr="aria-label:auth.close" aria-label="Cerrar">×</button>' +
       '  <div class="auth-tabs" role="tablist">' +
@@ -52,6 +54,7 @@
       '  <button type="button" class="auth-link" data-auth-forgot data-only="login" data-i18n="auth.forgot">¿Olvidaste tu contraseña?</button>' +
       '  <div class="auth-or mono"><span data-i18n="auth.or">o</span></div>' +
       '  <button type="button" class="auth-google" data-auth-google><svg viewBox="0 0 18 18" aria-hidden="true"><path fill="#EA4335" d="M9 3.6c1.3 0 2.5.5 3.4 1.3l2.5-2.5A8.6 8.6 0 0 0 9 .4 8.6 8.6 0 0 0 1.4 5l2.9 2.3C5 5.1 6.9 3.6 9 3.6z"/><path fill="#4285F4" d="M17.6 9.2c0-.6-.1-1.1-.2-1.6H9v3.1h4.8a4.1 4.1 0 0 1-1.8 2.7l2.8 2.2c1.7-1.5 2.8-3.8 2.8-6.4z"/><path fill="#FBBC05" d="M4.3 10.7a5.2 5.2 0 0 1 0-3.4L1.4 5a8.6 8.6 0 0 0 0 7.9l2.9-2.2z"/><path fill="#34A853" d="M9 17.6c2.3 0 4.2-.8 5.6-2.1l-2.8-2.2c-.8.5-1.7.8-2.8.8-2.1 0-3.9-1.4-4.7-3.3L1.4 12.9A8.6 8.6 0 0 0 9 17.6z"/></svg><span data-i18n="auth.google">Continuar con Google</span></button>' +
+      '</div>' +
       '</div>';
     document.body.appendChild(modal);
 
@@ -63,6 +66,17 @@
       if (e.target.closest("[data-auth-forgot]")) return forgot();
     });
     modal.querySelector("form").addEventListener("submit", submit);
+    if (window.MCChar) MCChar.mount(modal.querySelector(".auth-stage"));
+    var form = modal.querySelector("form"), idleTimer = 0;
+    form.addEventListener("focusin", function (e) {
+      clearTimeout(idleTimer);
+      var n = e.target.name;
+      if (window.MCChar) MCChar.setState(n === "email" ? "curious" : n === "password" ? "closed" : "idle");
+    });
+    form.addEventListener("focusout", function () {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function () { if (window.MCChar) MCChar.setState("idle"); }, 0);
+    });
     modal.addEventListener("keydown", trapFocus);
   }
 
@@ -121,12 +135,14 @@
     var first = form.querySelector(m === "signup" ? '[name="name"]' : '[name="email"]');
     setTimeout(function () { (off ? modal.querySelector(".auth-x") : first).focus(); }, 30);
     if (configured) loadSdk();
+    if (window.MCChar) { MCChar.setState("idle"); MCChar.start(); }
   }
 
   function closeModal() {
     if (!modal || modal.hidden) return;
     modal.hidden = true;
     document.documentElement.classList.remove("auth-open");
+    if (window.MCChar) MCChar.reset();
     modal.querySelector("form").reset();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
@@ -155,6 +171,12 @@
       })
       .catch(function (e) { sdkPromise = null; throw e; });
     return sdkPromise;
+  }
+
+  // Al iniciar sesión o registrarse con éxito: el personaje festeja y luego se cierra el panel
+  function celebrateAndClose() {
+    if (!window.MCChar) return closeModal();
+    return MCChar.celebrate(1900).then(closeModal);
   }
 
   function errText(e) {
@@ -205,7 +227,7 @@
 
     if (mode === "login") {
       run(function () {
-        return auth.signInWithEmailAndPassword(email, pass).then(closeModal);
+        return auth.signInWithEmailAndPassword(email, pass).then(celebrateAndClose);
       });
     } else {
       run(function () {
@@ -213,7 +235,7 @@
           var jobs = [];
           if (name) jobs.push(cred.user.updateProfile({ displayName: name }));
           jobs.push(cred.user.sendEmailVerification().catch(function () {}));
-          return Promise.all(jobs).then(function () { user = auth.currentUser; renderButtons(); closeModal(); });
+          return Promise.all(jobs).then(function () { user = auth.currentUser; renderButtons(); return celebrateAndClose(); });
         });
       });
     }
@@ -222,7 +244,7 @@
   function googleSignIn() {
     run(function () {
       var provider = new window.firebase.auth.GoogleAuthProvider();
-      return auth.signInWithPopup(provider).then(closeModal);
+      return auth.signInWithPopup(provider).then(celebrateAndClose);
     });
   }
 

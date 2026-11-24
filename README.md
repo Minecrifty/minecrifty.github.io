@@ -17,7 +17,9 @@ assets/
   js/i18n.js                   Textos ES / EN
   js/config.js                 Videos, Shorts, clave opcional de YouTube y datos de Firebase
   js/auth.js                   Iniciar sesión / Registrarse (Firebase Authentication)
+  js/char.js                   Personaje 3D del panel de acceso (CSS 3D a partir de la skin)
   img/                         Imágenes optimizadas y favicons
+  img/skin/                    Skin 64×64 en tres versiones: normal.png, curious.png, closed.png
 ```
 
 ## Ver el sitio en local
