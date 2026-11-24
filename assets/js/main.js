@@ -192,45 +192,76 @@
     if (!featured && !shorts && !statsSection) return;
 
     var auto = window.SITE_VIDEOS || {};
-    // Los IDs escritos a mano en config.js tienen prioridad; si no hay, se usan los automáticos (videos.js)
+    // 1) IDs escritos a mano en config.js, 2) lista de videos.js (opcional), 3) consulta en vivo con la clave
     var vids = (yt.featuredVideos && yt.featuredVideos.length) ? toItems(yt.featuredVideos) : toItems(auto.videos);
     var shs = (yt.shorts && yt.shorts.length) ? toItems(yt.shorts) : toItems(auto.shorts);
     var key = yt.apiKey;
-    var ids = vids.concat(shs).map(function (v) { return v.id; });
-    var titles = {};
+    var API = "https://www.googleapis.com/youtube/v3/";
 
     function render() {
-      renderVideos(featured, vids, titles, 6);
-      renderVideos(shorts, shs, titles, 10);
+      renderVideos(featured, vids, null, 6);
+      renderVideos(shorts, shs, null, 10);
       initMedia();
     }
-
     if (!key) { render(); return; }
 
-    var jobs = [];
-    if (ids.length) {
-      jobs.push(fetchJSON("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" +
-        encodeURIComponent(ids.join(",")) + "&key=" + encodeURIComponent(key))
-        .then(function (d) {
-          (d.items || []).forEach(function (v) { titles[v.id] = v.snippet.title; });
-        }).catch(function () {}));
+    function cacheGet(k) {
+      try {
+        var o = JSON.parse(localStorage.getItem(k));
+        if (o && Date.now() - o.t < 10 * 60 * 1000) return o.v;
+      } catch (e) {}
+      return null;
     }
-    if (statsSection && yt.handle) {
-      jobs.push(fetchJSON("https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=" +
-        encodeURIComponent(yt.handle) + "&key=" + encodeURIComponent(key))
-        .then(function (d) {
-          var s = d.items && d.items[0] && d.items[0].statistics;
-          if (!s) return;
-          ytStats = {
-            subs: s.hiddenSubscriberCount ? null : Number(s.subscriberCount),
-            views: Number(s.viewCount),
-            videos: Number(s.videoCount)
-          };
-          statsSection.hidden = false;
-          formatStats();
-        }).catch(function () {})); // si falla, la sección sigue oculta
+    function cacheSet(k, v) {
+      try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), v: v })); } catch (e) {}
     }
-    Promise.all(jobs).then(render);
+    function list(playlistId, max) {
+      return fetchJSON(API + "playlistItems?part=snippet&maxResults=" + max + "&playlistId=" +
+        encodeURIComponent(playlistId) + "&key=" + encodeURIComponent(key))
+        .then(function (d) {
+          return (d.items || []).map(function (it) {
+            return { id: it.snippet.resourceId.videoId, title: it.snippet.title };
+          });
+        });
+    }
+
+    var cached = cacheGet("yt-data");
+    var job;
+    if (cached) {
+      job = Promise.resolve(cached);
+    } else {
+      job = fetchJSON(API + "channels?part=statistics&forHandle=" + encodeURIComponent(yt.handle) +
+        "&key=" + encodeURIComponent(key)).then(function (d) {
+        var ch = d.items && d.items[0];
+        if (!ch) throw new Error("canal no encontrado");
+        var base = ch.id.slice(2);
+        // UULF = solo videos largos, UUSH = solo Shorts (listas automáticas de YouTube)
+        return Promise.all([
+          list("UULF" + base, 6).catch(function () { return []; }),
+          list("UUSH" + base, 10).catch(function () { return []; })
+        ]).then(function (r) {
+          var out = { videos: r[0], shorts: r[1], stats: ch.statistics || null };
+          if (out.videos.length || out.shorts.length) cacheSet("yt-data", out);
+          return out;
+        });
+      });
+    }
+
+    job.then(function (data) {
+      if (data.videos && data.videos.length) vids = data.videos;
+      if (data.shorts && data.shorts.length) shs = data.shorts;
+      var st = data.stats;
+      if (statsSection && st) {
+        ytStats = {
+          subs: st.hiddenSubscriberCount ? null : Number(st.subscriberCount),
+          views: Number(st.viewCount),
+          videos: Number(st.videoCount)
+        };
+        statsSection.hidden = false;
+        formatStats();
+      }
+      render();
+    }).catch(render); // si la API falla, se usan los datos locales o los "Próximamente"
   }
 
   /* ---------------- Frase aleatoria del globo ---------------- */

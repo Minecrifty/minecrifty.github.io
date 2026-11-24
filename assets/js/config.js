@@ -6,7 +6,7 @@
  *   o el ID de un Short en youtube.com/shorts/ID). Mientras estén vacías se muestran espacios
  *   "Próximamente". Ejemplo:  featuredVideos: ["dQw4w9WgXcQ", "abc123XYZ00"]
  *
- * - apiKey: opcional. Activa las estadísticas del canal (suscriptores, visualizaciones, videos)
+ * - apiKey: Activa las estadísticas del canal (suscriptores, visualizaciones, videos)
  *   y los títulos de los videos usando la YouTube Data API v3, que es gratuita.
  *   Cómo obtenerla: Google Cloud Console → crear proyecto → habilitar "YouTube Data API v3"
  *   → Credenciales → Clave de API → restringirla a "Referentes HTTP" con
@@ -30,7 +30,7 @@ window.SITE_CONFIG = {
   youtube: {
     handle: "@Minecrifty",
     channelUrl: "https://www.youtube.com/@Minecrifty",
-    apiKey: "",
+    apiKey: "AIzaSyAQiusYUnuY0GLrqS-EwegzOBIxScHhaiI",
     featuredVideos: [],
     shorts: []
   }

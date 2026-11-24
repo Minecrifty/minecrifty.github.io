@@ -60,7 +60,9 @@ Edita `assets/js/config.js`:
 - Enlaces de descarga de TicTacToe (el botón está desactivado hasta entonces).
 - Render final de la skin: reemplaza `assets/img/minecrifty-wave.webp` (y `og-image.jpg` si cambia).
 
-## Videos de YouTube (automático)
+## Videos de YouTube
+
+Con `apiKey` en `assets/js/config.js`, la página consulta el canal en vivo (últimos Shorts y videos y estadísticas públicas). Lo de abajo es un respaldo opcional sin clave.
 
 La página de YouTube muestra los Shorts y videos más recientes leyendo `assets/js/videos.js`.
 Ese archivo lo genera `tools/update_videos.py` (sin claves ni servicios de pago).
