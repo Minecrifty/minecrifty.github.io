@@ -82,7 +82,9 @@ button { font: inherit; color: inherit; }
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.bar { position: relative; display: flex; align-items: center; gap: 2rem; height: 100%; }
+.bar { position: relative; display: flex; align-items: center; gap: 1.5rem; height: 100%; }
+/* Barra superior a todo el ancho: logo pegado a la izquierda; menús, idioma y sesión pegados a la derecha */
+.site-header .container.bar { max-width: none; }
 
 .brand { display: inline-flex; align-items: center; gap: 0.7rem; margin-right: auto; font-weight: 800; font-size: 1.12rem; letter-spacing: -0.02em; }
 .brand-pix { position: relative; display: block; flex: none; height: 47px; width: 42px; }
