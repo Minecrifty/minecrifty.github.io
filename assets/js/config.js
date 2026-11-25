@@ -50,7 +50,7 @@ window.SITE_CONFIG = {
   	"Yupi?",
   	"Tengo mucho sueño",
   	"No dormí nada anoche",
-  	"421"m
+  	"421",
     "¡Suscríbete y deja like!"
   ],
 
