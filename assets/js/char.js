@@ -28,8 +28,10 @@
   function div(cls) { var n = document.createElement("div"); n.className = cls; return n; }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
-  /* Precarga de las tres caras para que el cambio sea instantáneo */
-  Object.keys(SKINS).forEach(function (k) { new Image().src = SKINS[k]; });
+  /* Precarga de las tres caras (en reposo) para que el cambio sea instantáneo */
+  function preload() { Object.keys(SKINS).forEach(function (k) { new Image().src = SKINS[k]; }); }
+  if ("requestIdleCallback" in window) requestIdleCallback(preload, { timeout: 4000 });
+  else setTimeout(preload, 2500);
 
   /* Un prisma de 6 caras; cada cara recorta su zona de la skin (disposición estándar de Minecraft).
    * infl > 0 agranda el prisma (capas exteriores: pelo, chaqueta, mangas, pantalón). */

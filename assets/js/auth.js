@@ -471,6 +471,28 @@
 
   buildMenu();
   renderUser();
-  // Restaurar la sesión al cargar cualquier página
-  if (configured) loadSdk().catch(function () { resolved = true; renderUser(); });
+  // Restaurar la sesión solo si hace falta: el SDK de Supabase (~170 KB) no se descarga para quien nunca inició sesión.
+  // Se carga de inmediato al volver de Google o de un enlace de correo, en reposo si ya había una sesión guardada,
+  // y bajo demanda al abrir el panel de acceso o el perfil.
+  function hasStoredSession() {
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        if (/^sb-.+-auth-token/.test(localStorage.key(i))) return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+  if (configured) {
+    var failSdk = function () { resolved = true; renderUser(); };
+    if (/[?&#](code|access_token|refresh_token|error_description|type)=/.test(location.search + location.hash)) {
+      loadSdk().catch(failSdk);
+    } else if (hint || hasStoredSession()) {
+      var restore = function () { loadSdk().catch(failSdk); };
+      if ("requestIdleCallback" in window) requestIdleCallback(restore, { timeout: 2000 });
+      else setTimeout(restore, 800);
+    } else {
+      resolved = true;
+      renderUser();
+    }
+  }
 })();
