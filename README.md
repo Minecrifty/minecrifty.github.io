@@ -89,3 +89,15 @@ Ese archivo lo genera `tools/update_videos.py` (sin claves ni servicios de pago)
   La primera vez: pestaña *Actions* → *Actualizar videos de YouTube* → *Run workflow*.
 - **Manual:** `python3 tools/update_videos.py` y vuelve a subir `assets/js/videos.js`.
 - Para fijar videos concretos, escribe sus IDs en `assets/js/config.js` (`featuredVideos` / `shorts`); tienen prioridad.
+
+## Iniciar sesión con usuario o correo
+
+El campo de acceso acepta nombre de usuario **o** correo; el registro pide ambos. Para que funcione con usuario hay que ejecutar
+`supabase/setup.sql` completo en Supabase → SQL Editor (se puede repetir sin problema). Ahí se crean los nombres únicos y las
+funciones `username_available` y `login_email`. Tras 8 intentos fallidos con un mismo usuario se bloquea 10 minutos (por correo
+siempre se puede entrar).
+
+## Personaje del panel de acceso
+
+Las caras están en `assets/img/skin/` (`normal.png`, `curious.png`, `closed.png`; skins de 64×64). Las poses (respiración, correo,
+contraseña y festejo) están en `assets/css/style.css`, sección "Personaje 3D junto al panel".

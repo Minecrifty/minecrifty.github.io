@@ -14,6 +14,10 @@ create table if not exists public.profiles (
 
 alter table public.profiles enable row level security;
 
+-- Permisos de la API: cada cuenta solo llega a su propia fila gracias a las reglas RLS de abajo
+grant usage on schema public to anon, authenticated;
+grant select, insert, update on public.profiles to authenticated;
+
 drop policy if exists "profiles_select_own" on public.profiles;
 drop policy if exists "profiles_insert_own" on public.profiles;
 drop policy if exists "profiles_update_own" on public.profiles;
@@ -32,19 +36,30 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  base text;
+  candidate text;
+  i int := 0;
 begin
-  insert into public.profiles (id, username)
-  values (
-    new.id,
-    left(coalesce(
-      nullif(btrim(new.raw_user_meta_data ->> 'username'), ''),
-      nullif(btrim(new.raw_user_meta_data ->> 'full_name'), ''),
-      nullif(split_part(new.email, '@', 1), ''),
-      'Jugador'
-    ), 32)
-  )
-  on conflict (id) do nothing;
-  return new;
+  base := left(coalesce(
+    nullif(btrim(new.raw_user_meta_data ->> 'username'), ''),
+    nullif(btrim(new.raw_user_meta_data ->> 'full_name'), ''),
+    nullif(split_part(new.email, '@', 1), ''),
+    'Jugador'
+  ), 32);
+  candidate := base;
+  loop
+    begin
+      insert into public.profiles (id, username) values (new.id, candidate)
+      on conflict (id) do nothing;
+      return new;
+    exception when unique_violation then
+      -- Nombre ocupado: se añade un sufijo corto (la persona puede cambiarlo luego en su perfil)
+      i := i + 1;
+      if i > 5 then raise; end if;
+      candidate := left(base, 26) || '_' || substr(md5(new.id::text || i::text), 1, 5);
+    end;
+  end loop;
 end;
 $$;
 
@@ -106,3 +121,89 @@ begin
       using (bucket_id = %L and (storage.foldername(name))[1] = auth.uid()::text)$p$, b || '_delete_own', b);
   end loop;
 end $$;
+
+-- 5) Inicio de sesión con nombre de usuario o correo --------------------------------------
+-- Los nombres de usuario deben ser únicos (sin distinguir mayúsculas). Si hubiera repetidos, se renombran.
+with d as (
+  select id, row_number() over (partition by lower(username) order by created_at, id) as rn
+  from public.profiles
+)
+update public.profiles p
+   set username = left(p.username, 26) || '_' || substr(md5(p.id::text), 1, 5)
+  from d
+ where p.id = d.id and d.rn > 1;
+
+create unique index if not exists profiles_username_lower_key on public.profiles (lower(username));
+
+-- ¿Está libre ese nombre? Solo responde sí/no.
+create or replace function public.username_available(p_username text)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select not exists (
+    select 1 from public.profiles
+     where lower(username) = lower(btrim(coalesce(p_username, '')))
+  );
+$$;
+
+revoke all on function public.username_available(text) from public;
+grant execute on function public.username_available(text) to anon, authenticated;
+
+-- Intentos fallidos de inicio de sesión con usuario (límite contra fuerza bruta). Nadie puede leerla desde la web.
+create table if not exists public.login_attempts (
+  username     text not null,
+  attempted_at timestamptz not null default now()
+);
+create index if not exists login_attempts_user_idx on public.login_attempts (username, attempted_at);
+create index if not exists login_attempts_time_idx on public.login_attempts (attempted_at);
+alter table public.login_attempts enable row level security;
+
+-- Devuelve el correo de ese usuario SOLO si la contraseña es correcta (así nadie puede sacar correos ajenos).
+-- Tras 8 intentos fallidos con un mismo usuario se bloquea 10 minutos; por correo siempre se puede entrar.
+create extension if not exists pgcrypto with schema extensions;
+
+create or replace function public.login_email(p_username text, p_password text)
+returns text
+language plpgsql
+security definer
+set search_path = public, auth, extensions
+as $$
+declare
+  v_name   text := lower(btrim(coalesce(p_username, '')));
+  v_email  text;
+  v_hash   text;
+  v_recent int;
+begin
+  if v_name = '' or coalesce(p_password, '') = '' then
+    return null;
+  end if;
+
+  select count(*) into v_recent
+    from public.login_attempts
+   where username = v_name and attempted_at > now() - interval '10 minutes';
+  if v_recent >= 8 then
+    return null;
+  end if;
+
+  select u.email, u.encrypted_password into v_email, v_hash
+    from public.profiles p
+    join auth.users u on u.id = p.id
+   where lower(p.username) = v_name
+   limit 1;
+
+  if v_email is not null and coalesce(v_hash, '') <> '' and v_hash = crypt(p_password, v_hash) then
+    delete from public.login_attempts where username = v_name;
+    return v_email;
+  end if;
+
+  insert into public.login_attempts (username) values (v_name);
+  delete from public.login_attempts where attempted_at < now() - interval '1 day';
+  return null;
+end;
+$$;
+
+revoke all on function public.login_email(text, text) from public;
+grant execute on function public.login_email(text, text) to anon, authenticated;

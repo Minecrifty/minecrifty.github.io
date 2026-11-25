@@ -343,7 +343,7 @@
     if (A.profileFailed()) return showMsg(t("profile.err.load"), "error");
     var username = form.username.value.trim();
     var gamertag = form.gamertag.value.trim();
-    if (!username || Array.from(username).length > 32) return showMsg(t("profile.err.username"), "error");
+    if (!username || Array.from(username).length > 32 || username.indexOf("@") >= 0) return showMsg(t("profile.err.username"), "error");
     if (gamertag && !GAMERTAG_RE.test(gamertag)) return showMsg(t("profile.err.gamertag"), "error");
 
     showMsg("");
@@ -373,8 +373,9 @@
       A.setProfile(res.data);
       fill();
       showMsg(t("profile.saved"), "ok");
-    }).catch(function () {
-      showMsg(t("profile.err.save"), "error");
+    }).catch(function (err) {
+      // 23505 = nombre de usuario repetido (debe ser único)
+      showMsg(t(err && err.code === "23505" ? "auth.err.usernametaken" : "profile.err.save"), "error");
     }).then(function () { setBusy(false); });
   }
 

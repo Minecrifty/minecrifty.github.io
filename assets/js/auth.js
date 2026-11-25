@@ -54,7 +54,7 @@
       '  <p class="auth-msg" role="status" aria-live="polite" hidden></p>' +
       '  <form class="auth-form" novalidate>' +
       '    <label class="auth-field" data-only="signup"><span data-i18n="auth.name">Nombre de usuario</span><input type="text" name="name" autocomplete="nickname" maxlength="32"></label>' +
-      '    <label class="auth-field" data-only="login signup"><span data-i18n="auth.email">Correo electrónico</span><input type="email" name="email" autocomplete="email" required></label>' +
+      '    <label class="auth-field" data-only="login signup"><span data-email-label>Correo electrónico</span><input type="email" name="email" autocomplete="email" required></label>' +
       '    <label class="auth-field"><span data-i18n="auth.password">Contraseña</span><input type="password" name="password" minlength="8" autocomplete="current-password" required></label>' +
       '    <button type="submit" class="btn btn-primary auth-submit"></button>' +
       '  </form>' +
@@ -109,6 +109,7 @@
     });
     var titles = { login: "auth.title.login", signup: "auth.title.signup", recover: "auth.title.recover" };
     var submits = { login: "auth.login", signup: "auth.signup", recover: "auth.recover.save" };
+    modal.querySelector("[data-email-label]").textContent = t(mode === "login" ? "auth.identifier" : "auth.email");
     modal.querySelector(".auth-title").textContent = t(titles[mode]);
     modal.querySelector(".auth-submit").textContent = t(submits[mode]);
   }
@@ -120,6 +121,10 @@
     });
     modal.querySelectorAll("[data-only]").forEach(function (n) { n.hidden = n.getAttribute("data-only").split(" ").indexOf(m) < 0; });
     modal.querySelector('[name="password"]').autocomplete = m === "login" ? "current-password" : "new-password";
+    // Al iniciar sesión el campo acepta usuario o correo; al registrarse solo correo
+    var idField = modal.querySelector('[name="email"]');
+    idField.type = m === "login" ? "text" : "email";
+    idField.autocomplete = m === "login" ? "username" : "email";
     modal.querySelector(".auth-form").setAttribute("data-mode", m);
     showMsg("");
     applyModalText();
@@ -224,6 +229,7 @@
     var msg = (e && e.message) || "";
     var map = {
       invalid_credentials: "auth.err.credential",
+      username_taken: "auth.err.usernametaken",
       user_already_exists: "auth.err.inuse",
       email_exists: "auth.err.inuse",
       weak_password: "auth.err.weak",
@@ -265,6 +271,13 @@
   }
   function check(res) { if (res && res.error) throw res.error; return res; }
 
+  // ¿Está libre ese nombre de usuario? Si la función aún no existe en Supabase, lo decide la base de datos al guardar.
+  function usernameFree(name) {
+    return client.rpc("username_available", { p_username: name }).then(function (res) {
+      return res.error ? true : res.data !== false;
+    }, function () { return true; });
+  }
+
   function submit(e) {
     e.preventDefault();
     var f = e.target;
@@ -283,29 +296,46 @@
       });
     }
 
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) return showMsg(t("auth.err.email"), "error");
-    if (mode === "signup" && pass.length < 8) return showMsg(t("auth.err.weak"), "error");
-    if (!pass) return showMsg(t("auth.err.credential"), "error");
+    var emailOk = /^\S+@\S+\.\S+$/.test(email);
 
     if (mode === "login") {
-      run(function () {
-        return client.auth.signInWithPassword({ email: email, password: pass }).then(check).then(celebrateAndClose);
+      if (!email || !pass) return showMsg(t("auth.err.credential"), "error");
+      if (email.indexOf("@") >= 0 && !emailOk) return showMsg(t("auth.err.email"), "error");
+      return run(function () {
+        // Con "@" es un correo. Si no, es un nombre de usuario: la base de datos entrega su correo solo si la contraseña es correcta.
+        var getEmail = email.indexOf("@") >= 0
+          ? Promise.resolve(email)
+          : client.rpc("login_email", { p_username: email, p_password: pass }).then(check).then(function (res) {
+              if (!res.data) throw { code: "invalid_credentials" };
+              return res.data;
+            });
+        return getEmail.then(function (em) {
+          return client.auth.signInWithPassword({ email: em, password: pass });
+        }).then(check).then(celebrateAndClose);
       });
-    } else {
-      run(function () {
+    }
+
+    // Registro: nombre de usuario y correo son obligatorios
+    if (!name || Array.from(name).length > 32 || name.indexOf("@") >= 0) return showMsg(t("auth.err.username"), "error");
+    if (!emailOk) return showMsg(t("auth.err.email"), "error");
+    if (pass.length < 8) return showMsg(t("auth.err.weak"), "error");
+
+    run(function () {
+      return usernameFree(name).then(function (free) {
+        if (!free) throw { code: "username_taken" };
         return client.auth.signUp({
           email: email,
           password: pass,
           options: { data: { username: name }, emailRedirectTo: redirectUrl() }
-        }).then(check).then(function (res) {
-          var d = res.data || {};
-          // Con la confirmación por correo activada, un correo ya registrado devuelve un usuario sin identidades
-          if (d.user && d.user.identities && d.user.identities.length === 0) throw { code: "user_already_exists" };
-          if (d.session) return celebrateAndClose();
-          showMsg(t("auth.confirm.sent"), "ok");
         });
+      }).then(check).then(function (res) {
+        var d = res.data || {};
+        // Con la confirmación por correo activada, un correo ya registrado devuelve un usuario sin identidades
+        if (d.user && d.user.identities && d.user.identities.length === 0) throw { code: "user_already_exists" };
+        if (d.session) return celebrateAndClose();
+        showMsg(t("auth.confirm.sent"), "ok");
       });
-    }
+    });
   }
 
   function googleSignIn() {
@@ -316,7 +346,7 @@
 
   function forgot() {
     var email = modal.querySelector('[name="email"]').value.trim();
-    if (!email) return showMsg(t("auth.reset.needemail"), "error");
+    if (!email || email.indexOf("@") < 0) return showMsg(t("auth.reset.needemail"), "error");
     run(function () {
       return client.auth.resetPasswordForEmail(email, { redirectTo: redirectUrl() }).then(check).then(function () {
         showMsg(t("auth.reset.sent"), "ok");
