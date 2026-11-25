@@ -506,6 +506,11 @@ html.has-user .auth-split, html.has-user .nav-auth { display: none !important; }
 
 .auth-modal button:disabled, .auth-modal input:disabled { opacity: 0.55; cursor: not-allowed; }
 
+/* ---------- Eventos ---------- */
+.ev-ph { display: grid; place-items: center; background: linear-gradient(135deg, var(--accent-soft), rgba(255,255,255,.03)); color: var(--faint); font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; }
+.ev-date { color: var(--accent-text); font-size: 0.82rem; }
+.ev-soon { display: flex; align-items: center; justify-content: center; padding: 1.6rem 1rem; border: 1px dashed var(--line); border-radius: 8px; color: var(--faint); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.15em; }
+
 /* ---------- Pie ---------- */
 .site-footer { padding-block: 2.25rem; background: var(--bg-2); color: var(--muted); font-size: 0.85rem; }
 .footer-row { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; justify-content: space-between; }
