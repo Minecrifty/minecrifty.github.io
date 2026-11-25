@@ -610,3 +610,12 @@ html.lb-open { overflow: hidden; }
   box-shadow: var(--bevel), 0 0 0 5px rgba(190, 27, 141, 0.16), 0 26px 60px -24px var(--accent-glow);
 }
 .cover-frame img { inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); border-radius: 6px; border: 1px solid var(--line-strong); }
+
+/* Introducción de la página de un addon: "01. ¿Qué es…?" y Propósito */
+.intro > * { max-width: 46rem; }
+.intro .mode-num { margin-bottom: 0.75rem; }
+.intro .prose { margin-top: 1rem; font-size: 1.05rem; line-height: 1.7; }
+.intro .prose strong { color: var(--text); font-weight: 700; }
+.intro-purpose { margin-top: 2.25rem; padding: 1.35rem 1.5rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); background: var(--surface); }
+.intro-purpose h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; }
+.intro-purpose .prose { margin-top: 0.6rem; }
