@@ -210,3 +210,48 @@ grant execute on function public.login_email(text, text) to anon, authenticated;
 
 -- 6) Que la API de Supabase vea de inmediato las funciones nuevas (sin esto, login_email puede dar "función no encontrada") --
 notify pgrst, 'reload schema';
+
+// 01. ¿Qué es TicTacToe?
+Es un addon para Minecraft Bedrock que inclye un sistema de minijuego de **tres en raya** integrado en un tablero fisico en tu mundo de Minecraft para que puedas jugar con otra persona.
+Permite organizar patidas entre dos jugadores, gestionar enfrentamientos y configurar los distintos modos de juego
+
+Propósito
+El proposito de este addon en ofrecer una experiencua de tres en raya funcional y más interactiva que un solo menú contra un bot y que la configuracion de las partidas seá lo más personalizado posible para una mejor experiencia de los usuarios.
+
+Características Principales
+- Tableros de 9x9 bloques.
+El tablero físico es de 5x5 bloques los cuales 3 de esos son las casillas
+- Partidas de dos jugadores
+Los tableros permiten que dos jugadores reales puedan jugar juntos
+- 3 modos de juego
+Clásico, Híbrido y Avanzado
+- Sistema de turnos y temporizador
+Los turnos cambian automáticamente y tienen tiempo limitado para tirar la ficha o se cambiará de turno.
+-Deteccion automática de victorias y empates.
+El sistema detecta si alguien ganó o empató la partida.
+- Bloques personalizados
+Hay bloques como las fichas hechas para interactuar con el tablero
+- Panel de control
+Un menú para los administradores del juego que permite configurar el juego o ver otros datos importantes.
+-Gestion de Tableros y Jugadores
+En el panel de control puees gestionar estados de tableros y a los jugadores conectados
+- Soporte para múltiples partidas simultaneas
+El addon permite que varios tableros estén jugando simultaneamente de forma correcta.
+
+02. Compatibilidad y requisitos
+-Plataforma: Minecraft Bedrock
+- Tipo de addon: Behavior Pack y Resource Pack
+- Autor: Minecrifty
+-Última Versión del Addon: 2.0
+
+03 Componentes del addon
+- Tablero
+El tablero es el componente principal que conforma el addon ya que este es el que guarda la informacion y genera el tablero de forma automática.
+Funciones: Representacion visual del tablero, control de turnos, validacion de movimientos, deteccion de combinaciones ganadoras o empates, administracion del estado de la partida.
+- Boton El botón es el control de los jugadores asignados a un tablero para validar que solo los jugadores asignados al tablero puedan interactuar con el
+- Panel de Control
+El panel de control es el item que da las herramientas administrativas del juego. Desde su interfaz es posible acceder y gestionar distintos elementos del sistema. Tiene varias secciones disponibles: Juego: Configuracion de los modos de juego, Tableros: Gestiona el estado y turnos de los tableros, Jugadores: Gestiona los jugadores contectados y al tablero que perteneces, Tutorial: Proporciona el link del video de YouTube para entender mejor el uso del addon.
+- Modos de juego
+(los actuales 3 bloques con la desc de cada modo)
+- Descarga
+Boton con link de desarga (proximamente)
