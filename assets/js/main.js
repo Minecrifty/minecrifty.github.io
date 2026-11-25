@@ -302,6 +302,122 @@
     update();
   }
 
+  /* ---------------- Galería ampliable (lightbox) ---------------- */
+  function initLightbox() {
+    // Cada contenedor [data-lightbox] es un grupo: las flechas pasan entre las imágenes de ese grupo
+    var groups = Array.prototype.slice.call(document.querySelectorAll("[data-lightbox]")).map(function (g) {
+      return Array.prototype.slice.call(g.querySelectorAll(".gallery-item, .feature-art")).filter(function (n) { return n.querySelector("img"); });
+    }).filter(function (g) { return g.length; });
+    if (!groups.length) return;
+    var items = groups[0];
+    var box = null, imgEl, capEl, cntEl, closeB, prevB, nextB, cur = 0, lastFocus = null, startX = null;
+
+    function build() {
+      box = document.createElement("div");
+      box.className = "lb";
+      box.hidden = true;
+      box.setAttribute("role", "dialog");
+      box.setAttribute("aria-modal", "true");
+      box.innerHTML =
+        '<div class="lb-backdrop" data-lb-close></div>' +
+        '<figure class="lb-fig"><img class="lb-img" alt=""><figcaption class="lb-cap"></figcaption></figure>' +
+        '<button type="button" class="lb-btn lb-close" data-lb-close>×</button>' +
+        '<button type="button" class="lb-btn lb-prev">‹</button>' +
+        '<button type="button" class="lb-btn lb-next">›</button>' +
+        '<p class="lb-count mono" aria-live="polite"></p>';
+      document.body.appendChild(box);
+      imgEl = box.querySelector(".lb-img"); capEl = box.querySelector(".lb-cap"); cntEl = box.querySelector(".lb-count");
+      closeB = box.querySelector(".lb-close"); prevB = box.querySelector(".lb-prev"); nextB = box.querySelector(".lb-next");
+      box.addEventListener("click", function (e) {
+        if (e.target.closest("[data-lb-close]")) close();
+        else if (e.target.closest(".lb-prev")) go(-1);
+        else if (e.target.closest(".lb-next")) go(1);
+      });
+      // deslizar con el dedo
+      box.addEventListener("pointerdown", function (e) { if (e.pointerType === "touch") startX = e.clientX; });
+      box.addEventListener("pointerup", function (e) {
+        if (startX == null) return;
+        var dx = e.clientX - startX; startX = null;
+        if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+      });
+      box.addEventListener("pointercancel", function () { startX = null; });
+    }
+
+    function labels() {
+      closeB.setAttribute("aria-label", t("lb.close"));
+      prevB.setAttribute("aria-label", t("lb.prev"));
+      nextB.setAttribute("aria-label", t("lb.next"));
+      box.setAttribute("aria-label", t("lb.label"));
+    }
+
+    function show(i) {
+      cur = (i + items.length) % items.length;
+      var src = items[cur].querySelector("img");
+      imgEl.classList.remove("is-in");
+      imgEl.src = src.currentSrc || src.src;
+      imgEl.alt = src.alt || "";
+      capEl.textContent = src.alt || "";
+      cntEl.textContent = (cur + 1) + " / " + items.length;
+      imgEl.classList.toggle("is-contain", items[cur].classList.contains("is-contain") || items[cur].classList.contains("feature-art"));
+      requestAnimationFrame(function () { imgEl.classList.add("is-in"); });
+      var multi = items.length > 1;
+      prevB.hidden = nextB.hidden = cntEl.hidden = !multi;
+      // precarga de las vecinas
+      [cur - 1, cur + 1].forEach(function (k) {
+        var n = items[(k + items.length) % items.length].querySelector("img");
+        if (n) new Image().src = n.currentSrc || n.src;
+      });
+    }
+
+    function go(d) { show(cur + d); }
+
+    function open(g, i) {
+      items = g;
+      if (!box) build();
+      lastFocus = document.activeElement;
+      labels();
+      show(i);
+      box.hidden = false;
+      doc.classList.add("lb-open");
+      closeB.focus();
+    }
+
+    function close() {
+      if (!box || box.hidden) return;
+      box.hidden = true;
+      doc.classList.remove("lb-open");
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    groups.forEach(function (g) {
+      g.forEach(function (n, i) {
+        n.setAttribute("tabindex", "0");
+        n.setAttribute("role", "button");
+        n.classList.add("is-zoomable");
+        n.addEventListener("click", function () { open(g, i); });
+        n.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(g, i); }
+        });
+      });
+    });
+    function relabel() { groups.forEach(function (g) { g.forEach(function (n) { n.setAttribute("aria-label", t("lb.open")); }); }); }
+    relabel();
+    document.addEventListener("langchange", function () { relabel(); if (box && !box.hidden) labels(); });
+
+    document.addEventListener("keydown", function (e) {
+      if (!box || box.hidden) return;
+      if (e.key === "Escape") { e.stopPropagation(); close(); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+      else if (e.key === "Tab") { // el foco no sale del visor
+        var f = [closeB, prevB, nextB].filter(function (b) { return !b.hidden; });
+        var i = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    }, true);
+  }
+
   /* Al abrir los archivos directamente (file://), los enlaces a carpetas necesitan index.html */
   function fixLocalLinks() {
     if (location.protocol !== "file:") return;
@@ -332,6 +448,7 @@
     initRail();
     initGreeting();
     initMedia();
+    initLightbox();
     initYouTube();
     initReveal();
     requestAnimationFrame(function () { doc.classList.add("ready"); });
