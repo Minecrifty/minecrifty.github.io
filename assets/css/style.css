@@ -619,3 +619,13 @@ html.lb-open { overflow: hidden; }
 .intro-purpose { margin-top: 2.25rem; padding: 1.35rem 1.5rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); background: var(--surface); }
 .intro-purpose h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; }
 .intro-purpose .prose { margin-top: 0.6rem; }
+
+/* Características principales: tarjetas en cuadrícula */
+.feat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
+.feat-card { padding: 1.25rem 1.35rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); transition: border-color 0.2s; }
+.feat-card:hover { border-color: var(--accent); }
+.feat-card h3 { display: flex; align-items: baseline; gap: 0.6rem; font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; }
+.feat-card h3::before { content: ""; flex: none; width: 0.6rem; height: 0.6rem; background: var(--accent); }
+.feat-card p { margin-top: 0.55rem; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+@media (max-width: 62rem) { .feat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 38rem) { .feat-grid { grid-template-columns: 1fr; } }
