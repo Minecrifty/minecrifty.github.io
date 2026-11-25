@@ -242,6 +242,8 @@
       signup_disabled: "auth.err.disabled"
     };
     if (map[code]) return t(map[code]);
+    // Falta la función en la base de datos (no se ejecutó supabase/setup.sql, o la API aún no recargó el esquema) o no tiene permisos
+    if (/^(PGRST202|PGRST301|42883|42501|404)$/.test(String(code)) || (e && e.status === 404)) return t("auth.err.setup");
     if (msg === "sdk" || (e && e.name === "AuthRetryableFetchError") || /failed to fetch|network/i.test(msg)) return t("auth.err.network");
     if (/invalid login credentials/i.test(msg)) return t("auth.err.credential");
     if (/already (been )?registered/i.test(msg)) return t("auth.err.inuse");
@@ -261,6 +263,7 @@
     showMsg("");
     setBusy(true);
     loadSdk().then(fn).catch(function (e) {
+      if (window.console) console.error("[MCAuth]", e); // el detalle real queda en la consola (F12) para poder diagnosticar
       var m = errText(e);
       if (m) showMsg(m, "error");
     }).then(function () { setBusy(false); });

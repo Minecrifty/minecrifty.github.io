@@ -207,3 +207,6 @@ $$;
 
 revoke all on function public.login_email(text, text) from public;
 grant execute on function public.login_email(text, text) to anon, authenticated;
+
+-- 6) Que la API de Supabase vea de inmediato las funciones nuevas (sin esto, login_email puede dar "función no encontrada") --
+notify pgrst, 'reload schema';

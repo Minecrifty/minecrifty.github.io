@@ -492,31 +492,9 @@ html.has-user .auth-split, html.has-user .nav-auth { display: none !important; }
 .mc-f-back { filter: brightness(0.85); }
 .mc-f-right { filter: brightness(0.8); }
 .mc-f-bottom { filter: brightness(0.6); }
-.mc-arm-r, .mc-arm-l, .mc-leg-r, .mc-leg-l { transition: transform 0.32s cubic-bezier(0.3, 1.5, 0.5, 1); }
 .mc-shadow { position: absolute; left: 50%; top: 50%; width: calc(var(--u) * 13); height: calc(var(--u) * 3); margin: calc(var(--u) * 15) 0 0 calc(var(--u) * -6.5); border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.55), transparent); }
-/* Festejo: brazos y piernas abiertos en V, con saltito */
-/* Respiración en reposo: los brazos se abren y se cierran muy poco, como una V suave */
-.auth-stage[data-state="idle"] .mc-arm-r { animation: mc-breathe-r 4.2s ease-in-out infinite; }
-.auth-stage[data-state="idle"] .mc-arm-l { animation: mc-breathe-l 4.2s ease-in-out infinite; }
-@keyframes mc-breathe-r { 0%, 100% { transform: rotateZ(0.5deg); } 50% { transform: rotateZ(4.5deg); } }
-@keyframes mc-breathe-l { 0%, 100% { transform: rotateZ(-0.5deg); } 50% { transform: rotateZ(-4.5deg); } }
-/* Escribiendo el correo: brazos y piernas relajados y un poco abiertos */
-.auth-stage[data-state="curious"] .mc-arm-r { transform: rotateZ(26deg); }
-.auth-stage[data-state="curious"] .mc-arm-l { transform: rotateZ(-20deg); }
-.auth-stage[data-state="curious"] .mc-leg-r { transform: rotateZ(10deg); }
-.auth-stage[data-state="curious"] .mc-leg-l { transform: rotateZ(-5deg); }
-/* Escribiendo la contraseña: brazos al frente (uno a la altura del pecho, otro junto a la cara) y piernas juntas */
-.auth-stage[data-state="closed"] .mc-arm-r { transform: rotateZ(40deg) rotateX(110deg); }
-.auth-stage[data-state="closed"] .mc-arm-l { transform: rotateZ(-20deg) rotateX(138deg); }
-/* Festejo */
-.auth-stage[data-state="celebrate"] .mc-arm-r { transform: rotateZ(148deg); }
-.auth-stage[data-state="celebrate"] .mc-arm-l { transform: rotateZ(-148deg); }
-.auth-stage[data-state="celebrate"] .mc-leg-r { transform: rotateZ(16deg); }
-.auth-stage[data-state="celebrate"] .mc-leg-l { transform: rotateZ(-16deg); }
-.auth-stage[data-state="celebrate"] .mc-jump { animation: mc-jump 0.5s ease-in-out infinite; }
-.auth-stage[data-state="celebrate"] .mc-shadow { animation: mc-shadow 0.5s ease-in-out infinite; }
-@keyframes mc-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--u) * -2.4)); } }
-@keyframes mc-shadow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.72); opacity: 0.6; } }
+/* Las poses del cuerpo (reposo/respiración, correo, contraseña, festejo y el saltito) las anima char.js con resortes,
+ * para que todos los cambios entre poses sean fluidos. */
 .mc-confetti-layer { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .mc-confetti { position: absolute; left: 50%; top: 38%; border-radius: 2px; background: var(--c); opacity: 0; animation: mc-confetti 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) forwards; }
 @keyframes mc-confetti {
@@ -524,11 +502,6 @@ html.has-user .auth-split, html.has-user .nav-auth { display: none !important; }
   12% { opacity: 1; }
   40% { transform: translate(calc(var(--dx) * 0.75), var(--up)) rotate(calc(var(--rot) * 0.4)); }
   100% { opacity: 0; transform: translate(var(--dx), calc(var(--up) + var(--fall))) rotate(var(--rot)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .mc-limb { transition: none; }
-  .auth-stage[data-state="idle"] .mc-arm-r, .auth-stage[data-state="idle"] .mc-arm-l { animation: none; }
-  .auth-stage[data-state="celebrate"] .mc-jump, .auth-stage[data-state="celebrate"] .mc-shadow { animation: none; }
 }
 
 .auth-modal button:disabled, .auth-modal input:disabled { opacity: 0.55; cursor: not-allowed; }
