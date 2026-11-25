@@ -369,6 +369,9 @@ html.auth-open .hero-art .wave { animation-play-state: paused; }
 .mode .desc { margin-top: 0.4rem; color: var(--muted); font-size: 0.96rem; }
 
 .gallery { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); }
+.mode h3 { line-height: 0; }
+.mode-title { display: block; height: 2.6rem; width: auto; max-width: 100%; image-rendering: pixelated; }
+.gallery-item.is-contain img { object-fit: contain; padding: 0.75rem; background: var(--surface-2); }
 .gallery-item { aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: var(--radius); }
 
 /* ---------- Datos y YouTube ---------- */
