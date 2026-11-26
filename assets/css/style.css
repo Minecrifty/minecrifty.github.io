@@ -707,3 +707,9 @@ html.lb-open { overflow: hidden; }
 /* Logos claros o con brillo (p. ej. CriftyEvento): placa oscura en vez de la clara */
 .ev-logo.ev-logo-dark { background: radial-gradient(closest-side, var(--accent-soft), transparent 90%), var(--bg-2); }
 .ev-logo.ev-logo-dark .media-placeholder { color: var(--faint); }
+
+/* Lista de minijuegos dentro de un evento */
+.ev-games { list-style: none; display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.ev-games li { display: grid; gap: 0.3rem; align-content: start; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); color: var(--muted); font-size: 0.9rem; line-height: 1.55; }
+.ev-games strong { display: flex; align-items: baseline; gap: 0.5rem; color: var(--text); font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; }
+.ev-games strong::before { content: ""; flex: none; width: 0.5rem; height: 0.5rem; background: var(--accent); }
