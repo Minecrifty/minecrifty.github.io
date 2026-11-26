@@ -302,12 +302,58 @@
     update();
   }
 
+  /* ---------------- Eventos desplegables ----------------
+     Una tarjeta (.ev-card en /events/, .ev-slide en el inicio) se abre al hacer clic en cualquier parte
+     de su cabecera; el contenido extra vive en .ev-more. */
+  var evUid = 0;
+  function setEventOpen(card, open) {
+    var more = card.querySelector(".ev-more");
+    var btn = card.querySelector(".ev-toggle");
+    if (!more) return;
+    more.hidden = !open;
+    card.classList.toggle("is-open", open);
+    if (btn) {
+      btn.setAttribute("aria-expanded", String(open));
+      var label = btn.querySelector("[data-i18n]");
+      if (label) {
+        label.setAttribute("data-i18n", open ? "ev.hide" : "common.details");
+        label.textContent = t(open ? "ev.hide" : "common.details");
+      }
+    }
+  }
+  function bindEventCard(card) {
+    if (card.getAttribute("data-ev-bound")) return;
+    card.setAttribute("data-ev-bound", "1");
+    var more = card.querySelector(".ev-more");
+    if (!more) return;
+    card.addEventListener("click", function (e) {
+      if (e.target.closest(".ev-more, a[href]")) return; // la galería y los enlaces no pliegan la tarjeta
+      var open = more.hidden;
+      setEventOpen(card, open);
+      // En el carrusel, tras ensancharse la tarjeta, se acerca para que no quede cortada
+      if (open && card.classList.contains("ev-slide")) {
+        setTimeout(function () {
+          if (card.scrollIntoView) card.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", inline: "nearest", block: "nearest" });
+        }, 420);
+      }
+    });
+  }
+  function initEventCards(scope) {
+    (scope || document).querySelectorAll(".ev-card, .ev-slide").forEach(bindEventCard);
+  }
+  function openEventFromHash() {
+    var id = location.hash.slice(1);
+    var card = id && document.querySelector(".ev-card[id='" + id.replace(/[^\w-]/g, "") + "']");
+    if (card) setEventOpen(card, true);
+  }
+
   /* ---------------- Eventos destacados (inicio) ----------------
-     Lee /events/ y convierte cada .prow en una tarjeta del carrusel.
+     Lee /events/ y convierte cada .prow en una tarjeta del carrusel (con la misma información desplegable).
      Si no se puede leer (por ejemplo abriendo el archivo con doble clic), se queda el contenido de respaldo del HTML. */
   function initEventsFeed() {
     var rail = document.querySelector("[data-events-feed]");
-    if (!rail || !window.fetch || !window.DOMParser) return;
+    if (!rail || !window.fetch || !window.DOMParser) { initEventCards(rail || document); return; }
+    initEventCards(rail);
     var url = new URL(rail.getAttribute("data-events-feed"), location.href);
     fetch(url.href).then(function (r) {
       if (!r.ok) throw new Error("events " + r.status);
@@ -315,22 +361,26 @@
     }).then(function (html) {
       var rows = new DOMParser().parseFromString(html, "text/html").querySelectorAll(".prow");
       if (!rows.length) return;
+      function fixSrc(node) {
+        node.querySelectorAll("img").forEach(function (img) {
+          var src = img.getAttribute("src");
+          if (src) img.src = new URL(src, url).href;
+        });
+      }
       var frag = document.createDocumentFragment();
       Array.prototype.slice.call(rows, 0, 6).forEach(function (row) {
         var href = row.getAttribute("href");
         var link = row.tagName === "A" ? row : row.querySelector("a[href]");
         if (!href && link) href = link.getAttribute("href");
-        var slide = el(href ? "a" : "article", "slide" + (href ? " is-link" : ""));
+        var more = row.querySelector(".ev-more");
+        var slide = el(href ? "a" : "article", "slide" + (href ? " is-link" : "") + (more ? " ev-slide" : ""));
         if (href) slide.href = new URL(href, url).href;
 
         var thumb = row.querySelector(".prow-thumb");
         var media = thumb ? document.importNode(thumb, true) : el("div", "media ev-ph");
         media.classList.remove("prow-thumb");
         media.classList.add("slide-media");
-        media.querySelectorAll("img").forEach(function (img) {
-          var src = img.getAttribute("src");
-          if (src) img.src = new URL(src, url).href;
-        });
+        fixSrc(media);
         slide.appendChild(media);
 
         var body = el("div", "slide-body");
@@ -344,11 +394,25 @@
         }
         var desc = row.querySelector(".desc");
         if (desc) body.appendChild(document.importNode(desc, true));
-        var end = row.querySelector(".prow-end");
+        var status = row.querySelector(".ev-status");
+        if (status) body.appendChild(document.importNode(status, true));
+        var end = row.querySelector(".prow-end:not(.ev-side)");
         if (end) {
-          var more = document.importNode(end, true);
-          more.className = "more mono" + (end.classList.contains("is-muted") ? " is-muted" : "");
-          body.appendChild(more);
+          var soon = document.importNode(end, true);
+          soon.className = "more mono" + (end.classList.contains("is-muted") ? " is-muted" : "");
+          body.appendChild(soon);
+        }
+        var toggle = row.querySelector(".ev-toggle");
+        if (more && toggle) {
+          var id = "home-ev-" + (++evUid);
+          var tg = document.importNode(toggle, true);
+          tg.setAttribute("aria-controls", id);
+          body.appendChild(tg);
+          var m = document.importNode(more, true);
+          m.id = id;
+          m.hidden = true;
+          fixSrc(m);
+          body.appendChild(m);
         }
         slide.appendChild(body);
         frag.appendChild(slide);
@@ -356,8 +420,90 @@
       rail.textContent = "";
       rail.appendChild(frag);
       initMedia(rail);
+      initEventCards(rail);
       applyLang(lang, false);
+      rail.dispatchEvent(new CustomEvent("railchange"));
     }).catch(function () { /* se mantiene el respaldo */ });
+  }
+
+  /* ---------------- Línea desplazadora del carrusel (PC) ----------------
+     <div class="rail" data-rail-line="id-de-la-linea"> ... y <div class="rail-line" id="id-de-la-linea" hidden><div class="rail-line-thumb"></div></div>
+     Se arrastra, se hace clic en la línea o se usan las flechas del teclado. Solo aparece si hay desbordamiento. */
+  function initRailLine() {
+    document.querySelectorAll("[data-rail-line]").forEach(function (rail) {
+      var line = document.getElementById(rail.getAttribute("data-rail-line"));
+      var thumb = line && line.querySelector(".rail-line-thumb");
+      if (!thumb) return;
+      var dragging = false, grabX = 0;
+
+      function metrics() {
+        var max = rail.scrollWidth - rail.clientWidth;
+        var track = line.clientWidth;
+        var w = Math.max(48, Math.min(track, track * rail.clientWidth / Math.max(rail.scrollWidth, 1)));
+        return { max: max, track: track, w: w, room: Math.max(track - w, 0) };
+      }
+      function update() {
+        var m = metrics();
+        var show = m.max > 4;
+        if (line.hidden === show) line.hidden = !show;
+        if (!show) return;
+        var ratio = rail.scrollLeft / m.max;
+        thumb.style.width = m.w + "px";
+        thumb.style.transform = "translateX(" + (ratio * m.room) + "px)";
+        thumb.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
+        thumb.setAttribute("aria-valuemin", "0");
+        thumb.setAttribute("aria-valuemax", "100");
+      }
+      function scrollToThumbX(x) {
+        var m = metrics();
+        var left = Math.min(Math.max(x - grabX, 0), m.room);
+        rail.scrollLeft = m.room ? (left / m.room) * m.max : 0;
+      }
+      function lineX(e) { return e.clientX - line.getBoundingClientRect().left; }
+      function stop() {
+        if (!dragging) return;
+        dragging = false;
+        line.classList.remove("is-drag");
+        rail.style.scrollSnapType = "";
+      }
+
+      line.addEventListener("pointerdown", function (e) {
+        if (e.button !== 0) return;
+        e.preventDefault();
+        dragging = true;
+        line.classList.add("is-drag");
+        rail.style.scrollSnapType = "none"; // sin "imán" mientras se arrastra
+        var tr = thumb.getBoundingClientRect();
+        if (e.target === thumb) grabX = e.clientX - tr.left;
+        else { grabX = tr.width / 2; scrollToThumbX(lineX(e)); }
+        try { line.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      line.addEventListener("pointermove", function (e) { if (dragging) scrollToThumbX(lineX(e)); });
+      line.addEventListener("pointerup", stop);
+      line.addEventListener("pointercancel", stop);
+      line.addEventListener("lostpointercapture", stop);
+      thumb.addEventListener("keydown", function (e) {
+        var dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!dir) return;
+        e.preventDefault();
+        var slide = rail.querySelector(".slide");
+        rail.scrollBy({ left: dir * (slide ? slide.getBoundingClientRect().width + 20 : 300), behavior: reduceMotion ? "auto" : "smooth" });
+      });
+
+      rail.addEventListener("scroll", update, { passive: true });
+      rail.addEventListener("railchange", update);
+      window.addEventListener("resize", update);
+      if (window.ResizeObserver) {
+        var ro = new ResizeObserver(update);
+        ro.observe(rail);
+        Array.prototype.forEach.call(rail.children, function (c) { ro.observe(c); });
+        new MutationObserver(function () {
+          Array.prototype.forEach.call(rail.children, function (c) { ro.observe(c); });
+          update();
+        }).observe(rail, { childList: true });
+      }
+      update();
+    });
   }
 
   /* ---------------- Galería ampliable (lightbox) ---------------- */
@@ -508,7 +654,10 @@
     initMedia();
     initLightbox();
     initYouTube();
+    initEventCards();
+    openEventFromHash();
     initEventsFeed();
+    initRailLine();
     initReveal();
     requestAnimationFrame(function () { doc.classList.add("ready"); });
   }

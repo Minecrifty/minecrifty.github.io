@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32.png?v=8">
 <link rel="icon" type="image/png" sizes="192x192" href="./assets/img/favicon-192.png?v=8">
 <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png?v=8">
-<link rel="stylesheet" href="./assets/css/style.css?v=24">
+<link rel="stylesheet" href="./assets/css/style.css?v=25">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -120,43 +120,30 @@
       </div>
     </div>
     <!-- Se rellena sola con los eventos de /events/ (data-events-feed). El contenido de abajo es el respaldo si no carga. -->
-    <div class="rail reveal" tabindex="0" aria-label="Eventos destacados" data-i18n-attr="aria-label:home.events" data-events-feed="./events/">
-      <article class="slide">
-        <div class="media slide-media ev-ph" aria-hidden="true">01</div>
+    <div class="rail reveal" tabindex="0" aria-label="Eventos destacados" data-i18n-attr="aria-label:home.events" id="events-rail" data-events-feed="./events/" data-rail-line="events-line">
+      <article class="slide ev-slide">
+        <div class="media slide-media ev-logo"><img src="./assets/img/events/squid-crifty-games.webp" alt="Logo de Squid Crifty Games" width="500" height="286" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
         <div class="slide-body">
-          <p class="ev-date mono" data-i18n="ev.date">Fecha por anunciar</p>
-          <h3><span data-i18n="ev.name">Evento</span> 1</h3>
-          <p class="desc" data-i18n="ev.info">Información próximamente.</p>
-          <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
+          <p class="ev-date mono" data-i18n="ev.scg.date">Junio 2025</p>
+          <h3>Squid Crifty Games</h3>
+          <p class="desc" data-i18n="ev.scg.desc">Mi primer evento inspirado en la serie Squid Game.</p>
+          <span class="ev-status is-done mono" data-i18n="ev.status.done">Finalizado</span>
+          <button class="ev-toggle mono" type="button" aria-expanded="false" aria-controls="home-ev-0"><span data-i18n="common.details">Ver detalles</span> <span class="arrow" aria-hidden="true">↓</span></button>
+          <div class="ev-more" id="home-ev-0" hidden>
+            <dl class="ev-facts">
+              <div><dt data-i18n="ev.status">Estado</dt><dd data-i18n="ev.status.done">Finalizado</dd></div>
+              <div><dt data-i18n="ev.when">Fecha</dt><dd data-i18n="ev.scg.date">Junio 2025</dd></div>
+            </dl>
+            <p class="prose" data-i18n="ev.scg.full">Este fue mi primer evento inspirado en la serie de Squid Game. Fue un evento 100% a base de comandos y addons propios (los addons solo incluían modelos y texturas).</p>
+            <h3 class="ev-sub mono" data-i18n="ev.images">Imágenes</h3>
+            <div class="ev-gallery"><p class="ev-noimg mono" data-i18n="common.imgsoon">Imagen próximamente</p></div>
+          </div>
         </div>
       </article>
-      <article class="slide">
-        <div class="media slide-media ev-ph" aria-hidden="true">02</div>
-        <div class="slide-body">
-          <p class="ev-date mono" data-i18n="ev.date">Fecha por anunciar</p>
-          <h3><span data-i18n="ev.name">Evento</span> 2</h3>
-          <p class="desc" data-i18n="ev.info">Información próximamente.</p>
-          <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
-        </div>
-      </article>
-      <article class="slide">
-        <div class="media slide-media ev-ph" aria-hidden="true">03</div>
-        <div class="slide-body">
-          <p class="ev-date mono" data-i18n="ev.date">Fecha por anunciar</p>
-          <h3><span data-i18n="ev.name">Evento</span> 3</h3>
-          <p class="desc" data-i18n="ev.info">Información próximamente.</p>
-          <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
-        </div>
-      </article>
-      <article class="slide">
-        <div class="media slide-media ev-ph" aria-hidden="true">04</div>
-        <div class="slide-body">
-          <p class="ev-date mono" data-i18n="ev.date">Fecha por anunciar</p>
-          <h3><span data-i18n="ev.name">Evento</span> 4</h3>
-          <p class="desc" data-i18n="ev.info">Información próximamente.</p>
-          <span class="more mono is-muted" data-i18n="common.soon">Próximamente</span>
-        </div>
-      </article>
+    </div>
+    <!-- Línea desplazadora (solo en PC; aparece cuando hay más eventos de los que caben) -->
+    <div class="container">
+      <div class="rail-line" id="events-line" hidden><div class="rail-line-thumb" role="scrollbar" aria-orientation="horizontal" aria-controls="events-rail" tabindex="0" aria-label="Desplazar eventos" data-i18n-attr="aria-label:ev.scroll"></div></div>
     </div>
     <div class="container">
       <p class="rail-more reveal"><a class="text-link mono" href="./events/"><span data-i18n="home.events.all">Ver todos los eventos</span> →</a></p>
@@ -195,12 +182,12 @@
   </div>
 </footer>
 </div>
-<script src="./assets/js/config.js?v=23"></script>
-<script src="./assets/js/videos.js?v=23"></script>
-<script src="./assets/js/i18n.js?v=23"></script>
-<script src="./assets/js/main.js?v=23"></script>
-<script src="./assets/js/char.js?v=23"></script>
-<script src="./assets/js/auth.js?v=23"></script>
-<script src="./assets/js/profile.js?v=23"></script>
+<script src="./assets/js/config.js?v=25"></script>
+<script src="./assets/js/videos.js?v=25"></script>
+<script src="./assets/js/i18n.js?v=25"></script>
+<script src="./assets/js/main.js?v=25"></script>
+<script src="./assets/js/char.js?v=25"></script>
+<script src="./assets/js/auth.js?v=25"></script>
+<script src="./assets/js/profile.js?v=25"></script>
 </body>
 </html>

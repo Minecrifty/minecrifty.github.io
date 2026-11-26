@@ -64,6 +64,13 @@ Para un texto nuevo: escríbelo en español en el HTML con `data-i18n="mi.clave"
 3. Imagen: agrega `<img src="assets/img/projects/tu-imagen.webp" alt="" loading="lazy">` (en `projects/index.html` usa `../assets/...`)`` dentro de `.media`. Mientras no haya imagen se muestra "Imagen próximamente". Para logos, añade la clase `contain` a `.media`.
 4. Página de detalle: copia `projects/tictactoe/` a `projects/<nombre>/`, y enlaza la tarjeta con `class="card is-link"` y un `<a class="card-link" href="projects/<nombre>/">` (en `projects/index.html`: `href="<nombre>/"`)``. Añade la URL a `sitemap.xml`.
 
+## Agregar un evento
+
+1. En `events/index.html` copia un `<article class="prow ev-card">` (el de Squid Crifty Games) y cambia nombre, fecha, estado, descripción y logo (`assets/img/events/`).
+2. Textos: agrega sus claves en `assets/js/i18n.js` (ES y EN), igual que `ev.scg.*`.
+3. Imágenes: dentro de `.ev-gallery` agrega un `<div class="media gallery-item">` por imagen (hay un ejemplo comentado) y borra el aviso "Imagen próximamente".
+4. El carrusel "Eventos destacados" del inicio se llena solo con esas tarjetas. La línea desplazadora (solo PC) aparece cuando hay más tarjetas de las que caben.
+
 ## YouTube
 
 Edita `assets/js/config.js`:
