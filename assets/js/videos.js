@@ -64,6 +64,11 @@ window.SITE_VIDEOS = {
   ],
   "shorts": [
     {
+      "id": "Z6GH6d1ZewQ",
+      "title": "Lo recuerdas? #minecraft #bestminecraftclips #viral #shorts #nostalgia #old #fyp #memes",
+      "published": "2026-11-25"
+    },
+    {
       "id": "4_TIlGAMLzM",
       "title": "ojalá #minecraft #viral #bestminecraftclips #minecraftmemes #gta #gtavi #shorts #viralvideo",
       "published": "2026-11-21"
@@ -117,11 +122,6 @@ window.SITE_VIDEOS = {
       "id": "3ye6F4oEc3A",
       "title": "llega a labedrock 🫪 #minecraft #memes #bestminecraftclips #humor #viral #fyp #funny #shorts #video",
       "published": "2026-10-17"
-    },
-    {
-      "id": "83BRoTpJ1oY",
-      "title": "traigo medio planeta #minecraft #memes #bestminecraftclips #humor #viral #funny #fyp #shorts #video",
-      "published": "2026-10-11"
     }
   ]
 };
