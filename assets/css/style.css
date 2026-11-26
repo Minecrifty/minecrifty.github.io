@@ -703,3 +703,7 @@ html.lb-open { overflow: hidden; }
   .rail-line:hover .rail-line-thumb, .rail-line-thumb:focus-visible, .rail-line.is-drag .rail-line-thumb { height: 10px; margin-top: -5px; }
   .rail-line.is-drag .rail-line-thumb { cursor: grabbing; }
 }
+
+/* Logos claros o con brillo (p. ej. CriftyEvento): placa oscura en vez de la clara */
+.ev-logo.ev-logo-dark { background: radial-gradient(closest-side, var(--accent-soft), transparent 90%), var(--bg-2); }
+.ev-logo.ev-logo-dark .media-placeholder { color: var(--faint); }
