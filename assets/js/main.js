@@ -302,6 +302,64 @@
     update();
   }
 
+  /* ---------------- Eventos destacados (inicio) ----------------
+     Lee /events/ y convierte cada .prow en una tarjeta del carrusel.
+     Si no se puede leer (por ejemplo abriendo el archivo con doble clic), se queda el contenido de respaldo del HTML. */
+  function initEventsFeed() {
+    var rail = document.querySelector("[data-events-feed]");
+    if (!rail || !window.fetch || !window.DOMParser) return;
+    var url = new URL(rail.getAttribute("data-events-feed"), location.href);
+    fetch(url.href).then(function (r) {
+      if (!r.ok) throw new Error("events " + r.status);
+      return r.text();
+    }).then(function (html) {
+      var rows = new DOMParser().parseFromString(html, "text/html").querySelectorAll(".prow");
+      if (!rows.length) return;
+      var frag = document.createDocumentFragment();
+      Array.prototype.slice.call(rows, 0, 6).forEach(function (row) {
+        var href = row.getAttribute("href");
+        var link = row.tagName === "A" ? row : row.querySelector("a[href]");
+        if (!href && link) href = link.getAttribute("href");
+        var slide = el(href ? "a" : "article", "slide" + (href ? " is-link" : ""));
+        if (href) slide.href = new URL(href, url).href;
+
+        var thumb = row.querySelector(".prow-thumb");
+        var media = thumb ? document.importNode(thumb, true) : el("div", "media ev-ph");
+        media.classList.remove("prow-thumb");
+        media.classList.add("slide-media");
+        media.querySelectorAll("img").forEach(function (img) {
+          var src = img.getAttribute("src");
+          if (src) img.src = new URL(src, url).href;
+        });
+        slide.appendChild(media);
+
+        var body = el("div", "slide-body");
+        var date = row.querySelector(".ev-date");
+        if (date) body.appendChild(document.importNode(date, true));
+        var title = row.querySelector("h2, h3");
+        if (title) {
+          var h3 = el("h3");
+          Array.prototype.forEach.call(title.childNodes, function (n) { h3.appendChild(document.importNode(n, true)); });
+          body.appendChild(h3);
+        }
+        var desc = row.querySelector(".desc");
+        if (desc) body.appendChild(document.importNode(desc, true));
+        var end = row.querySelector(".prow-end");
+        if (end) {
+          var more = document.importNode(end, true);
+          more.className = "more mono" + (end.classList.contains("is-muted") ? " is-muted" : "");
+          body.appendChild(more);
+        }
+        slide.appendChild(body);
+        frag.appendChild(slide);
+      });
+      rail.textContent = "";
+      rail.appendChild(frag);
+      initMedia(rail);
+      applyLang(lang, false);
+    }).catch(function () { /* se mantiene el respaldo */ });
+  }
+
   /* ---------------- Galería ampliable (lightbox) ---------------- */
   function initLightbox() {
     // Cada contenedor [data-lightbox] es un grupo: las flechas pasan entre las imágenes de ese grupo
@@ -450,6 +508,7 @@
     initMedia();
     initLightbox();
     initYouTube();
+    initEventsFeed();
     initReveal();
     requestAnimationFrame(function () { doc.classList.add("ready"); });
   }

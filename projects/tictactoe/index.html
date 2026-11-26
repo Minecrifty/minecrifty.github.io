@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../../assets/img/favicon-32.png?v=8">
 <link rel="icon" type="image/png" sizes="192x192" href="../../assets/img/favicon-192.png?v=8">
 <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png?v=8">
-<link rel="stylesheet" href="../../assets/css/style.css?v=22">
+<link rel="stylesheet" href="../../assets/css/style.css?v=26">
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -86,6 +86,7 @@
   <section class="section" style="padding-top:0">
     <div class="container">
       <div class="intro reveal">
+        <p class="mode-num" aria-hidden="true">02</p>
         <h2 data-i18n="ttt.feat.h">Características principales</h2>
       </div>
       <div class="feat-grid" data-stagger>
@@ -132,62 +133,54 @@
   <section class="section" style="padding-top:0">
     <div class="container">
       <div class="intro reveal">
-        <p class="mode-num" aria-hidden="true">02</p>
-        <h2 data-i18n="ttt.compat.h">Compatibilidad y requisitos</h2>
+        <p class="mode-num" aria-hidden="true">03</p>
+        <h2 data-i18n="ttt.comp.h">Componentes del addon</h2>
       </div>
-      <dl class="spec reveal">
-        <div><dt class="mono" data-i18n="ttt.compat.platform.l">Plataforma</dt><dd>Minecraft Bedrock</dd></div>
-        <div><dt class="mono" data-i18n="ttt.compat.type.l">Tipo de addon</dt><dd data-i18n="ttt.v.type">Behavior Pack y Resource Pack</dd></div>
-        <div><dt class="mono" data-i18n="ttt.l.author">Autor</dt><dd>Minecrifty</dd></div>
-        <div><dt class="mono" data-i18n="ttt.compat.version.l">Última versión del addon</dt><dd>2.0</dd></div>
-      </dl>
+      <div class="feature-list" data-lightbox>
+        <div class="feature reveal">
+          <div class="feature-art from-left">
+            <img src="../../assets/img/tictactoe/tablero.webp" alt="Modelo del tablero de TicTacToe" data-i18n-attr="alt:ttt.board.alt" width="756" height="621" loading="lazy" decoding="async">
+          </div>
+          <div class="feature-text">
+            <h3 data-i18n="ttt.comp.board.t">Tablero</h3>
+            <p class="prose" data-i18n="ttt.comp.board.d">El tablero es el componente principal que conforma el addon ya que este es el que guarda la información y genera el tablero de forma automática.</p>
+            <p class="prose" data-i18n="ttt.comp.board.f">Funciones: representación visual del tablero, control de turnos, validación de movimientos, detección de combinaciones ganadoras o empates, administración del estado de la partida.</p>
+          </div>
+        </div>
+        <div class="feature is-flip reveal">
+          <div class="feature-art from-right">
+            <img src="../../assets/img/tictactoe/boton.webp" alt="Modelo del botón de TicTacToe" data-i18n-attr="alt:ttt.button.alt" width="1000" height="1506" loading="lazy" decoding="async">
+          </div>
+          <div class="feature-text">
+            <h3 data-i18n="ttt.comp.button.t">Botón</h3>
+            <p class="prose" data-i18n="ttt.comp.button.d">El botón es el control de los jugadores asignados a un tablero para validar que solo los jugadores asignados al tablero puedan interactuar con él.</p>
+          </div>
+        </div>
+        <div class="feature reveal">
+          <div class="feature-art from-left">
+            <img src="../../assets/img/tictactoe/panel.webp" alt="Modelo del panel de control de TicTacToe" data-i18n-attr="alt:ttt.panel.alt" width="1080" height="953" loading="lazy" decoding="async">
+          </div>
+          <div class="feature-text">
+            <h3 data-i18n="ttt.comp.panel.t">Panel de control</h3>
+            <p class="prose" data-i18n="ttt.comp.panel.d">El panel de control es el ítem que da las herramientas administrativas del juego. Desde su interfaz es posible acceder y gestionar distintos elementos del sistema. Tiene varias secciones disponibles:</p>
+            <ul class="comp-list">
+              <li><strong data-i18n="ttt.comp.panel.1l">Juego:</strong><span data-i18n="ttt.comp.panel.1"> configuración de los modos de juego.</span></li>
+              <li><strong data-i18n="ttt.comp.panel.2l">Tableros:</strong><span data-i18n="ttt.comp.panel.2"> gestiona el estado y turnos de los tableros.</span></li>
+              <li><strong data-i18n="ttt.comp.panel.3l">Jugadores:</strong><span data-i18n="ttt.comp.panel.3"> gestiona los jugadores conectados y el tablero al que pertenecen.</span></li>
+              <li><strong data-i18n="ttt.comp.panel.4l">Tutorial:</strong><span data-i18n="ttt.comp.panel.4"> proporciona el link del video de YouTube para entender mejor el uso del addon.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section" style="padding-top:0">
     <div class="container">
       <div class="intro reveal">
-        <p class="mode-num" aria-hidden="true">03</p>
-        <h2 data-i18n="ttt.comp.h">Componentes del addon</h2>
+        <p class="mode-num" aria-hidden="true">04</p>
+        <h2 data-i18n="ttt.modes.h">Modos de juego</h2>
       </div>
-      <div class="feat-grid" data-stagger>
-        <article class="feat-card reveal">
-          <h3 data-i18n="ttt.comp.board.t">Tablero</h3>
-          <p data-i18n="ttt.comp.board.d">El tablero es el componente principal que conforma el addon ya que este es el que guarda la información y genera el tablero de forma automática.</p>
-          <p data-i18n="ttt.comp.board.f">Funciones: representación visual del tablero, control de turnos, validación de movimientos, detección de combinaciones ganadoras o empates, administración del estado de la partida.</p>
-        </article>
-        <article class="feat-card reveal">
-          <h3 data-i18n="ttt.comp.button.t">Botón</h3>
-          <p data-i18n="ttt.comp.button.d">El botón es el control de los jugadores asignados a un tablero para validar que solo los jugadores asignados al tablero puedan interactuar con él.</p>
-        </article>
-        <article class="feat-card reveal">
-          <h3 data-i18n="ttt.comp.panel.t">Panel de control</h3>
-          <p data-i18n="ttt.comp.panel.d">El panel de control es el ítem que da las herramientas administrativas del juego. Desde su interfaz es posible acceder y gestionar distintos elementos del sistema. Tiene varias secciones disponibles:</p>
-          <p><strong data-i18n="ttt.comp.panel.1l">Juego:</strong><span data-i18n="ttt.comp.panel.1"> configuración de los modos de juego.</span></p>
-          <p><strong data-i18n="ttt.comp.panel.2l">Tableros:</strong><span data-i18n="ttt.comp.panel.2"> gestiona el estado y turnos de los tableros.</span></p>
-          <p><strong data-i18n="ttt.comp.panel.3l">Jugadores:</strong><span data-i18n="ttt.comp.panel.3"> gestiona los jugadores conectados y el tablero al que pertenecen.</span></p>
-          <p><strong data-i18n="ttt.comp.panel.4l">Tutorial:</strong><span data-i18n="ttt.comp.panel.4"> proporciona el link del video de YouTube para entender mejor el uso del addon.</span></p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CONTENIDO ANTERIOR (se conserva abajo como referencia) ===== -->
-
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal"><h2 data-i18n="ttt.info.h">Características</h2></div>
-      <dl class="spec reveal">
-        <div><dt class="mono" data-i18n="ttt.l.type">Tipo</dt><dd data-i18n="ttt.v.type">Behavior Pack y Resource Pack</dd></div>
-        <div><dt class="mono" data-i18n="ttt.l.version">Versión</dt><dd>Minecraft Bedrock</dd></div>
-        <div><dt class="mono" data-i18n="ttt.l.author">Autor</dt><dd>Minecrifty</dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:0">
-    <div class="container">
-      <div class="section-head reveal"><h2 data-i18n="ttt.modes.h">Modos de juego</h2></div>
       <div class="modes" data-stagger>
         <article class="mode reveal">
           <p class="mode-num" aria-hidden="true">01</p>
@@ -210,7 +203,10 @@
 
   <section class="section" style="padding-top:0">
     <div class="container">
-      <div class="section-head reveal"><h2 data-i18n="ttt.gallery.h">Imágenes</h2></div>
+      <div class="intro reveal">
+        <p class="mode-num" aria-hidden="true">05</p>
+        <h2 data-i18n="ttt.gallery.h">Imágenes</h2>
+      </div>
       <!-- Para agregar una imagen: copia un bloque .media y cambia el archivo en assets/img/tictactoe/ -->
       <div class="gallery" data-stagger data-lightbox>
         <div class="media gallery-item reveal"><img src="../../assets/img/tictactoe/galeria-1.webp" alt="Tablero de TicTacToe con el botón de inicio" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
@@ -224,55 +220,32 @@
   </section>
 
   <section class="section" style="padding-top:0">
-    <div class="container feature-list" data-lightbox>
-      <div class="feature reveal">
-        <div class="feature-art from-left">
-          <img src="../../assets/img/tictactoe/tablero.webp" alt="Modelo del tablero de TicTacToe" data-i18n-attr="alt:ttt.board.alt" width="756" height="621" loading="lazy" decoding="async">
-        </div>
-        <div class="feature-text">
-          <p class="mode-num" aria-hidden="true">01</p>
-          <h2 data-i18n="ttt.board.h">Tablero</h2>
-          <p class="prose" data-i18n="ttt.board.d1">Esta entidad se obtiene en el apartado de huevos del inventario.</p>
-          <p class="prose" data-i18n="ttt.board.d2">Recuerda que debes cavar 2 bloques hacia abajo y ahí colocar la entidad para que el tablero se forme de manera correcta en el piso.</p>
-          <p class="prose" data-i18n="ttt.board.d3">El tablero ocupa un área de 9x9 bloques, entonces recuerda dejar espacio libre.</p>
-          <p class="prose" data-i18n="ttt.board.d4">Cada tablero recibe un número fijo, este te ayudará a identificarlos en el panel de control.</p>
-          <p class="prose" data-i18n="ttt.board.d5">Si deseas eliminar la entidad se debe hacer con /kill o desde el panel de control con esta ruta: tableros/[tableroSeleccionado]/Eliminar Tablero/Confirmar</p>
-          <p class="prose" data-i18n="ttt.board.d6">Cada tablero debe estar vinculado a un botón, se vinculará al botón más cercano y libre.</p>
-        </div>
+    <div class="container">
+      <div class="intro reveal">
+        <p class="mode-num" aria-hidden="true">06</p>
+        <h2 data-i18n="ttt.compat.h">Compatibilidad y requisitos</h2>
       </div>
-      <div class="feature is-flip reveal">
-        <div class="feature-art from-right">
-          <img src="../../assets/img/tictactoe/boton.webp" alt="Modelo del botón de TicTacToe" data-i18n-attr="alt:ttt.button.alt" width="1000" height="1506" loading="lazy" decoding="async">
-        </div>
-        <div class="feature-text">
-          <p class="mode-num" aria-hidden="true">02</p>
-          <h2 data-i18n="ttt.button.h">Botón</h2>
-          <p class="prose" data-i18n="ttt.button.d1">El botón primero se debe vincular con un tablero, se hace automáticamente al tablero más cercano y que no tenga botón.</p>
-          <p class="prose" data-i18n="ttt.button.d2">Los jugadores deberán tocar el botón para registrarse en su tablero y posteriormente para marcar que están listos para iniciar la partida.</p>
-        </div>
-      </div>
-      <div class="feature reveal">
-        <div class="feature-art from-left">
-          <img src="../../assets/img/tictactoe/panel.webp" alt="Modelo del panel de control de TicTacToe" data-i18n-attr="alt:ttt.panel.alt" width="1080" height="953" loading="lazy" decoding="async">
-        </div>
-        <div class="feature-text">
-          <p class="mode-num" aria-hidden="true">03</p>
-          <h2 data-i18n="ttt.panel.h">Panel de Control</h2>
-          <p class="prose" data-i18n="ttt.panel.d1">Este item se encuentra en el menú de "Equipo" del inventario de creativo.</p>
-          <p class="prose" data-i18n="ttt.panel.d2">Solo los jugadores con tag "admin" pueden acceder a él. Para tener tag admin usa el comando "/tag @s add admin" en el chat.</p>
-          <p class="prose" data-i18n="ttt.panel.d3">Este item es el centro de control de todo el juego: te permite seleccionar el modo de juego que van a jugar los jugadores, iniciar las partidas, ver el estado actual de un tablero, ver los jugadores en línea y moverlos entre tableros, reestablecer todos los tableros y muchas opciones más.</p>
-        </div>
-      </div>
+      <dl class="spec reveal">
+        <div><dt class="mono" data-i18n="ttt.compat.platform.l">Plataforma</dt><dd>Minecraft Bedrock</dd></div>
+        <div><dt class="mono" data-i18n="ttt.compat.type.l">Tipo de addon</dt><dd data-i18n="ttt.v.type">Behavior Pack y Resource Pack</dd></div>
+        <div><dt class="mono" data-i18n="ttt.l.author">Autor</dt><dd>Minecrifty</dd></div>
+        <div><dt class="mono" data-i18n="ttt.compat.version.l">Última versión del addon</dt><dd>2.0</dd></div>
+      </dl>
     </div>
   </section>
 
   <section class="section" style="padding-top:0">
-    <div class="container reveal">
-      <div class="section-head"><h2 data-i18n="ttt.dl.h">Descarga</h2></div>
-      <p class="prose" data-i18n="ttt.dl.text">Los enlaces de descarga se publicarán aquí.</p>
-      <div class="actions">
-        <!-- Cuando exista el enlace: quita "disabled" y "aria-disabled", cambia <button> por <a href="..."> -->
-        <button class="btn btn-primary" type="button" disabled aria-disabled="true" data-i18n="common.soon">Próximamente</button>
+    <div class="container">
+      <div class="intro reveal">
+        <p class="mode-num" aria-hidden="true">07</p>
+        <h2 data-i18n="ttt.dl.h">Descarga</h2>
+      </div>
+      <div class="dl-card reveal">
+        <p class="prose" data-i18n="ttt.dl.text">Los enlaces de descarga se publicarán aquí.</p>
+        <div class="actions">
+          <!-- Cuando exista el enlace: quita "disabled" y "aria-disabled", cambia <button> por <a href="..."> -->
+          <button class="btn btn-primary" type="button" disabled aria-disabled="true" data-i18n="common.soon">Próximamente</button>
+        </div>
       </div>
     </div>
   </section>

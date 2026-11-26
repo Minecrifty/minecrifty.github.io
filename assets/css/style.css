@@ -526,8 +526,10 @@ html.has-user .auth-split, html.has-user .nav-auth { display: none !important; }
 .feature-art:hover img { transform: scale(1.05) rotate(-1.5deg); filter: drop-shadow(0 20px 30px var(--accent-glow)); animation-play-state: paused; }
 @keyframes feat-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 .feature-text .mode-num { margin-bottom: 0.75rem; }
-.feature-text h2 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; }
+.feature-text h2, .feature-text h3 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; }
 .feature-text .prose { margin-top: 0.75rem; color: var(--muted); max-width: 34rem; }
+.feature-text .prose strong { color: var(--text); font-weight: 700; }
+.feature-text .prose-sub { margin-top: 0.35rem; }
 /* entrada lateral: la imagen llega desde su lado al aparecer */
 .js .feature.reveal .feature-art { opacity: 0; }
 .js .feature.reveal .feature-art.from-left { transform: translateX(-40px); }
@@ -629,3 +631,21 @@ html.lb-open { overflow: hidden; }
 .feat-card p { margin-top: 0.55rem; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
 @media (max-width: 62rem) { .feat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 38rem) { .feat-grid { grid-template-columns: 1fr; } }
+.intro + .feature-list { margin-top: 2.5rem; }
+
+/* lista de secciones del panel */
+.comp-list { list-style: none; margin-top: 1rem; display: grid; gap: 0.5rem; max-width: 34rem; }
+.comp-list li { position: relative; padding: 0.7rem 1rem 0.7rem 2.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+.comp-list li::before { content: ""; position: absolute; left: 0.95rem; top: 1.05rem; width: 0.5rem; height: 0.5rem; background: var(--accent); }
+.comp-list strong { color: var(--text); font-weight: 700; }
+/* aire entre un encabezado numerado y su contenido */
+.intro + .spec, .intro + .modes, .intro + .gallery { margin-top: 2rem; }
+/* tarjeta de descarga */
+.dl-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem 2rem; margin-top: 2rem; padding: 1.75rem 2rem; border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); background: radial-gradient(closest-side at 0 50%, var(--accent-soft), transparent 70%), var(--surface); box-shadow: var(--bevel); }
+.dl-card .prose { margin: 0; font-size: 1.05rem; }
+.dl-card .actions { margin: 0; }
+/* eventos destacados (inicio) */
+.events-showcase { padding-top: 0; }
+.events-showcase .slide-media.ev-ph { font-size: 3rem; }
+.slide .ev-date { margin-bottom: 0.15rem; }
+.slide .more.is-muted { color: var(--faint); }
