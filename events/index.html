@@ -66,6 +66,34 @@
     <div class="container plist">
     <!-- Cada evento es un <article class="prow ev-card">. Al hacer clic se despliega .ev-more (info + imágenes).
          El carrusel de "Eventos destacados" del inicio lee estas tarjetas automáticamente. -->
+    <article class="prow ev-card reveal" id="tictactoe">
+      <div class="media prow-thumb ev-logo"><img src="../assets/img/events/tictactoe.webp" alt="Logo de TicTacToe" width="1600" height="347" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+      <div class="prow-main">
+        <p class="ev-date mono" data-i18n="ev.date">Fecha por anunciar</p>
+        <h2>TicTacToe</h2>
+        <p class="desc" data-i18n="ev.ttt.desc">Un torneo de 32 personas donde solo una ganará.</p>
+      </div>
+      <div class="prow-end ev-side">
+        <span class="ev-status mono" data-i18n="common.soon">Próximamente</span>
+        <button class="ev-toggle mono" type="button" aria-expanded="false" aria-controls="ev-ttt-more"><span data-i18n="common.details">Ver detalles</span> <span class="arrow" aria-hidden="true">↓</span></button>
+      </div>
+      <div class="ev-more" id="ev-ttt-more" hidden>
+        <dl class="ev-facts">
+          <div><dt data-i18n="ev.status">Estado</dt><dd data-i18n="common.soon">Próximamente</dd></div>
+          <div><dt data-i18n="ev.when">Fecha</dt><dd data-i18n="ev.date">Fecha por anunciar</dd></div>
+        </dl>
+        <p class="prose" data-i18n="ev.ttt.full">Será un torneo de 32 personas y solo una ganará. Más información próximamente.</p>
+        <h3 class="ev-sub mono" data-i18n="ev.images">Imágenes</h3>
+        <div class="ev-gallery" data-lightbox>
+          <div class="media gallery-item"><img src="../assets/img/events/ttt/partida.webp" alt="Partida de TicTacToe con dos jugadores en el tablero" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+          <div class="media gallery-item"><img src="../assets/img/events/ttt/tablero.webp" alt="Tablero de TicTacToe con el botón de inicio" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+          <div class="media gallery-item"><img src="../assets/img/events/ttt/panel.webp" alt="Panel de control de TicTacToe" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+          <div class="media gallery-item"><img src="../assets/img/events/ttt/llaves.webp" alt="Vista aérea de las llaves del torneo" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+          <div class="media gallery-item"><img src="../assets/img/events/ttt/entrada.webp" alt="Entrada de la arena helada del torneo" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+          <div class="media gallery-item"><img src="../assets/img/events/ttt/lobby.webp" alt="Lobby del torneo" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
+        </div>
+      </div>
+    </article>
     <article class="prow ev-card reveal" id="squid-crifty-games">
       <div class="media prow-thumb ev-logo"><img src="../assets/img/events/squid-crifty-games.webp" alt="Logo de Squid Crifty Games" width="500" height="286" loading="lazy" decoding="async"><span class="media-placeholder mono" data-i18n="common.imgsoon">Imagen próximamente</span></div>
       <div class="prow-main">
