@@ -64,6 +64,11 @@ window.SITE_VIDEOS = {
   ],
   "shorts": [
     {
+      "id": "LzCe_eA2Fiw",
+      "title": "Mi bro #minecraft #viral #bestminecraftclips #minecraftmemes #shorts #viral #video",
+      "published": "2026-11-27"
+    },
+    {
       "id": "Z6GH6d1ZewQ",
       "title": "Lo recuerdas? #minecraft #bestminecraftclips #viral #shorts #nostalgia #old #fyp #memes",
       "published": "2026-11-25"
@@ -117,11 +122,6 @@ window.SITE_VIDEOS = {
       "id": "tlrFMSpW_ls",
       "title": "pobre golem #minecraft #bestminecraftclips #memes #humor #viral #fyp #shorts #viralvideo",
       "published": "2026-10-19"
-    },
-    {
-      "id": "3ye6F4oEc3A",
-      "title": "llega a labedrock 🫪 #minecraft #memes #bestminecraftclips #humor #viral #fyp #funny #shorts #video",
-      "published": "2026-10-17"
     }
   ]
 };
