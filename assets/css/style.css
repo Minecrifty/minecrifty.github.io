@@ -725,3 +725,7 @@ html.lb-open { overflow: hidden; }
 .ev-shot .gallery-item { aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 6px; }
 .ev-shot figcaption { color: var(--accent-text); font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; }
 .ev-shot figcaption::before { content: "★ "; }
+
+/* Nota "Zona de Comandos" junto a los minijuegos */
+.ev-games li.is-note { border-style: dashed; border-color: var(--accent); background: var(--accent-soft); }
+.ev-games li.is-note strong::before { content: "★"; width: auto; height: auto; background: none; color: var(--accent-text); font-size: 0.85rem; }
