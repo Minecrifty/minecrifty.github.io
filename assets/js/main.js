@@ -421,6 +421,7 @@
       rail.appendChild(frag);
       initMedia(rail);
       initEventCards(rail);
+      if (decorateLightbox) decorateLightbox(rail);
       applyLang(lang, false);
       rail.dispatchEvent(new CustomEvent("railchange"));
     }).catch(function () { /* se mantiene el respaldo */ });
@@ -507,13 +508,15 @@
   }
 
   /* ---------------- Galería ampliable (lightbox) ---------------- */
+  var decorateLightbox = null;
   function initLightbox() {
-    // Cada contenedor [data-lightbox] es un grupo: las flechas pasan entre las imágenes de ese grupo
-    var groups = Array.prototype.slice.call(document.querySelectorAll("[data-lightbox]")).map(function (g) {
-      return Array.prototype.slice.call(g.querySelectorAll(".gallery-item, .feature-art")).filter(function (n) { return n.querySelector("img"); });
-    }).filter(function (g) { return g.length; });
-    if (!groups.length) return;
-    var items = groups[0];
+    // Cada contenedor [data-lightbox] es un grupo: las flechas pasan entre las imágenes de ese grupo.
+    // Los clics se detectan por delegación, así también funcionan con tarjetas creadas después (carrusel de eventos).
+    var items = [];
+    var ITEM_SEL = ".gallery-item, .feature-art";
+    function groupItems(host) {
+      return Array.prototype.slice.call(host.querySelectorAll(ITEM_SEL)).filter(function (n) { return n.querySelector("img"); });
+    }
     var box = null, imgEl, capEl, cntEl, closeB, prevB, nextB, cur = 0, lastFocus = null, startX = null;
 
     function build() {
@@ -593,18 +596,33 @@
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
 
-    groups.forEach(function (g) {
-      g.forEach(function (n, i) {
-        n.setAttribute("tabindex", "0");
-        n.setAttribute("role", "button");
-        n.classList.add("is-zoomable");
-        n.addEventListener("click", function () { open(g, i); });
-        n.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(g, i); }
+    function decorate(scope) {
+      (scope || document).querySelectorAll("[data-lightbox]").forEach(function (host) {
+        groupItems(host).forEach(function (n) {
+          n.setAttribute("tabindex", "0");
+          n.setAttribute("role", "button");
+          n.classList.add("is-zoomable");
+          n.setAttribute("aria-label", t("lb.open"));
         });
       });
+    }
+    decorateLightbox = decorate;
+    function fromNode(n) {
+      var host = n && n.closest("[data-lightbox]");
+      if (!host || !n.querySelector("img")) return;
+      var g = groupItems(host);
+      open(g, g.indexOf(n));
+    }
+    document.addEventListener("click", function (e) {
+      var n = e.target.closest && e.target.closest(ITEM_SEL);
+      if (n && n.closest("[data-lightbox]")) fromNode(n);
     });
-    function relabel() { groups.forEach(function (g) { g.forEach(function (n) { n.setAttribute("aria-label", t("lb.open")); }); }); }
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var n = e.target.closest && e.target.closest(ITEM_SEL);
+      if (n && n === e.target && n.closest("[data-lightbox]")) { e.preventDefault(); fromNode(n); }
+    });
+    function relabel() { decorate(document); }
     relabel();
     document.addEventListener("langchange", function () { relabel(); if (box && !box.hidden) labels(); });
 

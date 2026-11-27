@@ -718,3 +718,10 @@ html.lb-open { overflow: hidden; }
 .ev-logo, .ev-logo.ev-logo-dark { background: transparent; }
 .prow-thumb.ev-logo { border-color: transparent; }
 .ev-logo .media-placeholder { color: var(--faint); }
+
+/* Minijuegos con imagen (dentro de .ev-games) y foto con nota */
+.ev-games li > .gallery-item { aspect-ratio: 16 / 10; margin-bottom: 0.45rem; border: 1px solid var(--line); border-radius: 6px; }
+.ev-shot { margin: 0; display: grid; gap: 0.45rem; width: min(100%, 420px); }
+.ev-shot .gallery-item { aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 6px; }
+.ev-shot figcaption { color: var(--accent-text); font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.ev-shot figcaption::before { content: "★ "; }
