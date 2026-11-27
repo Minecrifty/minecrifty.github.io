@@ -507,6 +507,25 @@
     });
   }
 
+  /* ---------------- Carrusel de imágenes en una tarjeta ---------------- */
+  function initCarousels() {
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest(".ev-car-btn");
+      if (!btn) return;
+      e.stopPropagation();
+      var car = btn.closest(".ev-carousel");
+      var items = Array.prototype.slice.call(car.querySelectorAll(".gallery-item"));
+      if (items.length < 2) return;
+      var cur = 0;
+      items.forEach(function (n, i) { if (n.classList.contains("is-current")) cur = i; });
+      var next = (cur + parseInt(btn.getAttribute("data-car"), 10) + items.length) % items.length;
+      items[cur].classList.remove("is-current");
+      items[next].classList.add("is-current");
+      var count = car.querySelector(".ev-car-count");
+      if (count) count.textContent = (next + 1) + " / " + items.length;
+    });
+  }
+
   /* ---------------- Galería ampliable (lightbox) ---------------- */
   var decorateLightbox = null;
   function initLightbox() {
@@ -672,8 +691,10 @@
     initMedia();
     initLightbox();
     initYouTube();
+    initCarousels();
     initEventCards();
     openEventFromHash();
+    window.addEventListener("hashchange", openEventFromHash);
     initEventsFeed();
     initRailLine();
     initReveal();
